@@ -60,45 +60,51 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
-
-        // French accents. Acute/grave are real macOS dead keys (Option+e,
-        // Option+`); shift on the tap picks grave over acute for e.
-        accent_e: accent_e {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&fr_e_acute>, <&fr_e_grave>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
     };
 
     macros {
-        // Modeled on danieleavitabile/zmk-config's macOS accent macros:
-        // press the modifier, tap the dead-key trigger while it's still
-        // held, release the modifier, then tap the letter -- four discrete
-        // steps, not one combined Alt+key report. macOS's dead-key state
-        // machine apparently wants to see it arrive that way.
+        // macOS dead keys: option+e = acute, option+` = grave,
+        // option+i = circumflex, option+u = trema. The first four emit a
+        // finished character; the last two arm the dead key and leave the
+        // vowel to you, so one key covers every vowel.
+        //
+        // Requires the Mac's keyboard type to be ANSI -- if it is set to
+        // ISO, option+` produces a literal section sign instead of arming
+        // the grave dead key. System Settings > Keyboard > Change Keyboard Type.
         fr_e_acute: fr_e_acute {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp RALT>, <&macro_tap &kp E>, <&macro_release &kp RALT>, <&macro_tap &kp E>;
+            bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
         };
 
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp E>;
+            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp A>;
+            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp U>;
+            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
+        };
+
+        fr_circumflex: fr_circumflex {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp LA(I)>;
+        };
+
+        fr_trema: fr_trema {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp LA(U)>;
         };
     };
 
@@ -114,6 +120,18 @@
             bindings = <&kp CAPS>;
             layers = <BASE>;
         };
+
+        // Z + X together -> sticky accent layer: the combo fires and
+        // releases, then the very next key comes from the accent layer.
+        // "zx" is not a digraph in French or English, and both are plain
+        // keys, so there is no hold-tap to fight with.
+        combo_accent {
+            timeout-ms = <40>;
+            require-prior-idle-ms = <120>;
+            key-positions = <21 22>;   // Z and X
+            bindings = <&sl ACCENT>;
+            layers = <BASE>;
+        };
     };
 
     keymap {
@@ -127,7 +145,7 @@
         &kp Q         &kp W        &kp E        &kp R         &kp T      &kp Y      &kp U         &kp I        &kp O        &kp P
         &hml LCTRL A  &hml LALT S  &hml LGUI D  &hml LSHFT F  &kp G      &kp H      &hmr RSHFT J  &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
 &mo NUM &kp Z         &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
-                                   &lt SYM ESC   &lt NAV TAB    &kp SPACE    &kp RET    &kp BSPC      &kp DEL
+                                   &lt SYM ESC   &lt NAV SPACE  &kp TAB      &kp RET    &kp BSPC      &kp DEL
             >;
         };
 
@@ -146,8 +164,8 @@
 
         sym_func {
             bindings = <
-           &kp ESC        &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &mo ACCENT        &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
-           &kp TAB        &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+           &none          &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &none             &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
+           &none          &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
 &kp GRAVE  &kp LESS_THAN  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp GREATER_THAN  &kp UNDERSCORE    &kp F7   &kp F8     &kp F9    &kp F10   &kp F11   &kp F12
                                                 &trans                 &trans            &trans            &none    &none    &none
             >;
@@ -173,14 +191,16 @@
             >;
         };
 
-        // Held via sym's free top-left-inner key (T). Tap e/E for é/è,
-        // a for à, u for ù, c for ç -- everything else falls through to sym.
+        // Reached by the Z+X combo as a sticky layer, so every accent is
+        // one chord followed by one tap -- no holds. Letters sit on their
+        // own keys (e -> e-acute, a -> a-grave...). y and i arm a bare dead
+        // key instead, so one key covers every vowel it applies to.
         accent {
             bindings = <
-&trans  &trans        &accent_e    &trans  &trans       &trans  &fr_u_grave  &trans  &trans  &trans
-&fr_a_grave  &trans  &trans        &trans  &trans       &trans  &trans        &trans  &trans  &trans
-&trans  &trans  &trans  &kp LA(C)   &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
-                     &trans        &trans  &trans      &trans  &trans  &trans
+&trans       &trans  &fr_e_acute  &trans      &trans   &fr_trema  &fr_u_grave  &fr_circumflex  &trans  &trans
+&fr_a_grave  &trans  &fr_e_grave  &trans      &trans   &trans     &trans       &trans          &trans  &trans
+&trans       &trans  &trans       &kp LA(C)   &trans   &trans     &trans       &trans          &trans  &trans  &trans  &trans
+                                  &trans      &trans   &trans     &trans       &trans          &trans
             >;
         };
 
