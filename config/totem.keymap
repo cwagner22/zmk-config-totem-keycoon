@@ -61,10 +61,8 @@
             hold-trigger-on-release;
         };
 
-        // French accents. Acute (e) is a real macOS dead key (Option+e).
-        // Grave (e/a/u) uses the native press-and-hold accent popup instead --
-        // Option+` types a literal ~ rather than arming a dead key on this
-        // machine. Shift on the tap picks grave over acute for e.
+        // French accents. Acute/grave are real macOS dead keys (Option+e,
+        // Option+`); shift on the tap picks grave over acute for e.
         accent_e: accent_e {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -81,29 +79,28 @@
             bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
         };
 
-        // Held long enough to trigger macOS's own press-and-hold accent
-        // popup, then picks the option numbered 1 (grave was position 1 in
-        // the popup for e -- if a/u order differs, change the N1 there).
-        // Shift released first so e's popup shows the lowercase set.
+        // Shift needs real time to release before the grave combo fires --
+        // 40ms wasn't enough margin and the OS still saw shift+option+grave
+        // (-> literal ~) instead of the plain grave dead key.
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <650>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_press &kp E>, <&macro_tap &kp N1>, <&macro_release &kp E>;
+            wait-ms = <40>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_wait_time 120>, <&macro_tap &kp LA(GRAVE)>, <&macro_wait_time 40>, <&macro_tap &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <650>;
-            bindings = <&macro_press &kp A>, <&macro_tap &kp N1>, <&macro_release &kp A>;
+            wait-ms = <40>;
+            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <650>;
-            bindings = <&macro_press &kp U>, <&macro_tap &kp N1>, <&macro_release &kp U>;
+            wait-ms = <40>;
+            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
         };
     };
 
