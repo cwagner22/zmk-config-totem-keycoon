@@ -61,8 +61,10 @@
             hold-trigger-on-release;
         };
 
-        // French accents. Acute/grave are real macOS dead keys (Option+e,
-        // Option+`); shift on the tap picks grave over acute for e.
+        // French accents. Acute (e) is a real macOS dead key (Option+e).
+        // Grave (e/a/u) uses the native press-and-hold accent popup instead --
+        // Option+` types a literal ~ rather than arming a dead key on this
+        // machine. Shift on the tap picks grave over acute for e.
         accent_e: accent_e {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -79,29 +81,29 @@
             bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
         };
 
-        // Shift is released first: shift+option+grave types a literal ~
-        // on macOS instead of arming the grave dead key, and è/à/ù are
-        // reached with shift still physically held (accent_e's morph,
-        // or just habit for a/u).
+        // Held long enough to trigger macOS's own press-and-hold accent
+        // popup, then picks the option numbered 1 (grave was position 1 in
+        // the popup for e -- if a/u order differs, change the N1 there).
+        // Shift released first so e's popup shows the lowercase set.
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp E>;
+            wait-ms = <650>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_press &kp E>, <&macro_tap &kp N1>, <&macro_release &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
+            wait-ms = <650>;
+            bindings = <&macro_press &kp A>, <&macro_tap &kp N1>, <&macro_release &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
+            wait-ms = <650>;
+            bindings = <&macro_press &kp U>, <&macro_tap &kp N1>, <&macro_release &kp U>;
         };
     };
 
@@ -180,7 +182,7 @@
         // a for à, u for ù, c for ç -- everything else falls through to sym.
         accent {
             bindings = <
-&trans  &trans        &accent_e    &trans  &trans       &trans  &kp X  &trans  &trans  &trans
+&trans  &trans        &accent_e    &trans  &trans       &trans  &fr_u_grave  &trans  &trans  &trans
 &fr_a_grave  &trans  &trans        &trans  &trans       &trans  &trans        &trans  &trans  &trans
 &trans  &trans  &trans  &kp LA(C)   &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
                      &trans        &trans  &trans      &trans  &trans  &trans
