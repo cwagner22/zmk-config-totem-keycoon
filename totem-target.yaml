@@ -52,7 +52,8 @@ layers:
     h: sym_func
   - t: SPACE
     h: nav
-  - TAB
+  - t: TAB
+    h: LGUI
   - RET
   - BSPC
   - DEL
@@ -78,10 +79,10 @@ layers:
   - RALT
   - RCTRL
   - Gui+[
-  - Gui+Z
-  - Gui+X
-  - Gui+C
-  - Gui+V
+  - ''
+  - ''
+  - ''
+  - ''
   - ''
   - ''
   - ''
