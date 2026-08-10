@@ -180,7 +180,7 @@
         // a for à, u for ù, c for ç -- everything else falls through to sym.
         accent {
             bindings = <
-&trans  &trans        &accent_e    &trans  &trans       &trans  &fr_u_grave  &trans  &trans  &trans
+&trans  &trans        &accent_e    &trans  &trans       &trans  &kp X  &trans  &trans  &trans
 &fr_a_grave  &trans  &trans        &trans  &trans       &trans  &trans        &trans  &trans  &trans
 &trans  &trans  &trans  &kp LA(C)   &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
                      &trans        &trans  &trans      &trans  &trans  &trans
