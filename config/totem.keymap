@@ -78,22 +78,26 @@
             bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
         };
 
+        // Shift is released first: shift+option+grave types a literal ~
+        // on macOS instead of arming the grave dead key, and è/à/ù are
+        // reached with shift still physically held (accent_e's morph,
+        // or just habit for a/u).
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp E>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
         };
     };
 
