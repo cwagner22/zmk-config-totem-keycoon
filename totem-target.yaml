@@ -96,7 +96,7 @@ layers:
   - ''
   - ''
   sym_func:
-  - ESC
+  - ''
   - '{'
   - '}'
   - Sft+Alt+2
@@ -106,7 +106,7 @@ layers:
   - F3
   - F4
   - F5
-  - TAB
+  - ''
   - '['
   - ']'
   - ENTER
