@@ -75,6 +75,7 @@
         fr_e_acute: fr_e_acute {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            wait-ms = <40>;
             bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
         };
 
@@ -85,18 +86,21 @@
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            wait-ms = <40>;
             bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            wait-ms = <40>;
             bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            wait-ms = <40>;
             bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
         };
     };
