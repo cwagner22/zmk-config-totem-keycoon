@@ -72,35 +72,33 @@
     };
 
     macros {
+        // Modeled on danieleavitabile/zmk-config's macOS accent macros:
+        // press the modifier, tap the dead-key trigger while it's still
+        // held, release the modifier, then tap the letter -- four discrete
+        // steps, not one combined Alt+key report. macOS's dead-key state
+        // machine apparently wants to see it arrive that way.
         fr_e_acute: fr_e_acute {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_tap &kp LA(E)>, <&macro_tap &kp E>;
+            bindings = <&macro_press &kp RALT>, <&macro_tap &kp E>, <&macro_release &kp RALT>, <&macro_tap &kp E>;
         };
 
-        // Shift needs real time to release before the grave combo fires --
-        // 40ms wasn't enough margin and the OS still saw shift+option+grave
-        // (-> literal ~) instead of the plain grave dead key.
         fr_e_grave: fr_e_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_wait_time 120>, <&macro_tap &kp LA(GRAVE)>, <&macro_wait_time 40>, <&macro_tap &kp E>;
+            bindings = <&macro_release &kp LSHFT &kp RSHFT>, <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp E>;
         };
 
         fr_a_grave: fr_a_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp A>;
+            bindings = <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp A>;
         };
 
         fr_u_grave: fr_u_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <40>;
-            bindings = <&macro_tap &kp LA(GRAVE)>, <&macro_tap &kp U>;
+            bindings = <&macro_press &kp RALT>, <&macro_tap &kp GRAVE>, <&macro_release &kp RALT>, <&macro_tap &kp U>;
         };
     };
 
