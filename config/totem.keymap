@@ -164,9 +164,9 @@
 
         sym_func {
             bindings = <
-           &none          &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &none             &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
-           &none          &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
-&kp GRAVE  &kp LESS_THAN  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp GREATER_THAN  &kp UNDERSCORE    &kp F7   &kp F8     &kp F9    &kp F10   &kp F11   &kp F12
+           &kp ESC        &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &none             &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
+           &kp TAB        &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&kp GRAVE  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none             &kp UNDERSCORE    &kp F7   &kp F8     &kp F9    &kp F10   &kp F11   &kp F12
                                                 &trans                 &trans            &trans            &none    &none    &none
             >;
         };
