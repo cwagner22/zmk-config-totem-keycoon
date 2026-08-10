@@ -140,11 +140,15 @@
         // Mods, weakest finger outward: ctrl - alt - cmd - shift
         // Cmd sits on the middle finger because it is the most used
         // modifier on macOS. Ctrl is on the pinky because it is the least.
+        //
+        // The num key had no tap action, so it now taps ctrl+alt+w for
+        // Wispr Flow dictation -- one key here instead of a three key
+        // chord, since the firmware sends the modifiers itself.
         base {
             bindings = <
         &kp Q         &kp W        &kp E        &kp R         &kp T      &kp Y      &kp U         &kp I        &kp O        &kp P
         &hml LCTRL A  &hml LALT S  &hml LGUI D  &hml LSHFT F  &kp G      &kp H      &hmr RSHFT J  &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
-&mo NUM &kp Z         &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
+&lt NUM LC(LA(W)) &kp Z   &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
                                    &lt SYM ESC   &lt NAV SPACE  &kp TAB      &kp RET    &kp BSPC      &kp DEL
             >;
         };

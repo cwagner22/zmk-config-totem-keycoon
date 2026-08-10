@@ -30,7 +30,9 @@ layers:
     h: RALT
   - t: ;
     h: RCTRL
-  - num
+  - t: Flow
+    s: ⌃⌥W
+    h: num
   - Z
   - X
   - t: C
