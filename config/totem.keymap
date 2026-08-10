@@ -55,6 +55,20 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        // F + J together -> caps lock. Base layer only, so it cannot fire
+        // while a layer is held. Short timeout to avoid catching fast typing.
+        combo_caps {
+            timeout-ms = <40>;
+            require-prior-idle-ms = <120>;
+            key-positions = <13 16>;   // F and J
+            bindings = <&kp CAPS>;
+            layers = <BASE>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
