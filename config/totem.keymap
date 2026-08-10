@@ -20,6 +20,11 @@
 #define DEV  3
 #define NUM  4
 
+// Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
+// No app claims these, so they are safe for global hotkeys.
+#define HYP LS(LC(LA(LGUI)))
+#define MEH LS(LC(LALT))
+
 // TOTEM key positions, 0-37, in keymap order.
 #define KEYS_L  0  1  2  3  4 10 11 12 13 14 20 21 22 23 24 25
 #define KEYS_R  5  6  7  8  9 15 16 17 18 19 26 27 28 29 30 31
@@ -79,7 +84,7 @@
             bindings = <
         &kp Q         &kp W        &kp E        &kp R         &kp T      &kp Y      &kp U         &kp I        &kp O        &kp P
         &hml LCTRL A  &hml LALT S  &hml LGUI D  &hml LSHFT F  &kp G      &kp H      &hmr RSHFT J  &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
-&mo NUM &kp Z         &kp X        &kp C        &kp V         &kp B      &kp N      &kp M         &kp COMMA    &kp DOT      &kp FSLH        &kp APOS
+&mo NUM &kp Z         &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
                                    &kp SPACE    &lt SYM ESC   &lt NAV TAB    &kp RET    &kp BSPC      &kp DEL
             >;
         };
@@ -99,8 +104,8 @@
         sym_func {
             bindings = <
            &kp ESC        &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &none             &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
-           &kp TAB        &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp F7   &kp F8   &kp F9   &kp F10
-&kp GRAVE  &kp LESS_THAN  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp GREATER_THAN  &kp UNDERSCORE    &kp F11  &kp F12  &kp F13  &kp F14  &kp F15  &kp F16
+           &kp TAB        &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&kp GRAVE  &kp LESS_THAN  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp GREATER_THAN  &kp UNDERSCORE    &kp F7   &kp F8     &kp F9    &kp F10   &kp F11   &kp F12
                                                 &trans                 &trans            &trans            &none    &none    &none
             >;
         };
