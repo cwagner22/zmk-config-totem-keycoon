@@ -78,11 +78,10 @@ layers:
   - RGUI
   - RALT
   - RCTRL
-  - ''
-  - ''
   - Gui+[
-  - Gui+]
+  - ''
   - Gui+Sft+[
+  - ''
   - Gui+Sft+]
   - ''
   - ''
@@ -90,6 +89,7 @@ layers:
   - ''
   - ''
   - ''
+  - Gui+]
   - t: ▽
     type: trans
   - type: held
@@ -167,9 +167,9 @@ layers:
   - ''
   - ''
   - ''
+  - RW
   - ''
-  - ''
-  - ''
+  - FF
   - ''
   - ''
   - ''
