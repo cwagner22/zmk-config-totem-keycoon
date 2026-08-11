@@ -36,15 +36,15 @@ layers:
   - Z
   - X
   - t: C
-    h: Sft+Ctl+LALT
+    h: Meh
   - t: V
-    h: Meh+LGUI
+    h: Hyper
   - B
   - N
   - t: M
-    h: Meh+LGUI
+    h: Hyper
   - t: ','
-    h: Sft+Ctl+LALT
+    h: Meh
   - .
   - /
   - ''''
@@ -80,9 +80,9 @@ layers:
   - RCTRL
   - Gui+[
   - ''
+  - Gui+Sft+[
   - ''
-  - ''
-  - ''
+  - Gui+Sft+]
   - ''
   - ''
   - ''
@@ -167,9 +167,9 @@ layers:
   - ''
   - ''
   - ''
+  - RW
   - ''
-  - ''
-  - ''
+  - FF
   - ''
   - ''
   - ''
@@ -223,75 +223,46 @@ layers:
   - ''
   - '%'
   accent:
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ''
+  - ''
   - é
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ''
+  - ''
   - t: ¨
     s: dead key
   - ù
   - t: ^
     s: dead key
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ''
+  - ''
   - à
-  - t: ▽
-    type: trans
+  - ''
   - è
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - type: held
   - type: held
   - ç
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
 combos:
 - p:
   - 13
