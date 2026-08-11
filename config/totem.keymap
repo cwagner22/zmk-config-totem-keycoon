@@ -69,14 +69,8 @@
     };
 
     macros {
-        // macOS dead keys: option+e = acute, option+` = grave,
-        // option+i = circumflex, option+u = trema. The first four emit a
-        // finished character; the last two arm the dead key and leave the
-        // vowel to you, so one key covers every vowel.
-        //
-        // Requires the Mac's keyboard type to be ANSI -- if it is set to
-        // ISO, option+` produces a literal section sign instead of arming
-        // the grave dead key. System Settings > Keyboard > Change Keyboard Type.
+        // macOS dead keys via option (e=acute, `=grave, i=circumflex, u=trema).
+        // Needs keyboard type = ANSI, else option+` sends a section sign.
         fr_e_acute: fr_e_acute {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -127,10 +121,7 @@
             layers = <BASE>;
         };
 
-        // Z + X together -> sticky accent layer: the combo fires and
-        // releases, then the very next key comes from the accent layer.
-        // "zx" is not a digraph in French or English, and both are plain
-        // keys, so there is no hold-tap to fight with.
+        // z + x -> sticky accent layer. Not a digraph, both keys plain.
         combo_accent {
             timeout-ms = <40>;
             require-prior-idle-ms = <120>;
@@ -146,10 +137,7 @@
         // Mods, weakest finger outward: ctrl - alt - cmd - shift
         // Cmd sits on the middle finger because it is the most used
         // modifier on macOS. Ctrl is on the pinky because it is the least.
-        //
-        // The num key had no tap action, so it now taps ctrl+alt+w for
-        // Wispr Flow dictation -- one key here instead of a three key
-        // chord, since the firmware sends the modifiers itself.
+        // num key taps ctrl+alt+w for Wispr Flow (its hotkey caps at 3 keys).
         base {
             bindings = <
         &kp Q         &kp W        &kp E        &kp R         &kp T      &kp Y      &kp U         &kp I        &kp O        &kp P
@@ -159,18 +147,15 @@
             >;
         };
 
-        // Left hand keeps the arrow cluster so it stays usable one-handed
-        // with the right hand on the trackpad. Right home row carries plain
-        // mods, so cmd+arrow and cmd+shift+arrow work by chording across hands.
-        // Outer keys are cmd+[ / cmd+] for browser/Finder back and forward,
-        // and the two keys under the left/right arrows step through tabs.
-        // Device puts rewind/fast-forward on those same two positions.
-
+        // Left hand keeps arrows usable one-handed with the right hand on
+        // the trackpad; right home row carries plain mods for cmd+arrow.
+        // x/c = history back/forward, v/b = prev/next tab. Device reuses
+        // x/c for rewind/fast-forward.
         nav {
             bindings = <
              &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none   &none      &none     &none     &none
              &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &none   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
-&kp LG(LBKT) &none        &kp LG(LS(LBKT)) &none    &kp LG(LS(RBKT)) &none    &none   &none      &none     &none     &none      &kp LG(RBKT)
+&none        &none        &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
                                          &trans     &trans      &trans        &none   &none      &none
             >;
         };
@@ -188,7 +173,7 @@
             bindings = <
        &none       &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &none             &none    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
        &kp K_MUTE  &kp C_VOLUME_DOWN     &kp C_VOLUME_UP       &kp C_PLAY_PAUSE  &none    &none         &none         &none         &none         &none
-&none  &none       &kp C_RW              &none                 &kp C_FF          &none    &none         &none         &none         &none         &none         &bt BT_CLR
+&none  &none       &kp C_RW              &kp C_FF              &none             &none    &none         &none         &none         &none         &none         &bt BT_CLR
                                          &none                 &none             &none    &none         &none         &none
             >;
         };
@@ -204,10 +189,8 @@
             >;
         };
 
-        // Reached by the Z+X combo as a sticky layer, so every accent is
-        // one chord followed by one tap -- no holds. Letters sit on their
-        // own keys (e -> e-acute, a -> a-grave...). y and i arm a bare dead
-        // key instead, so one key covers every vowel it applies to.
+        // Reached via the z+x sticky combo: one chord, one tap, no holds.
+        // i/y arm the circumflex/trema dead keys instead of a fixed letter.
         accent {
             bindings = <
 &trans       &trans  &fr_e_acute  &trans      &trans   &fr_trema  &fr_u_grave  &fr_circumflex  &trans  &trans
