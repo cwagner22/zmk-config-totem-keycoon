@@ -17,10 +17,11 @@
 
 #define BASE 0
 #define NAV  1
-#define SYM  2
-#define DEV  3
-#define NUM  4
-#define ACCENT 5
+#define NUM  2
+#define SYM  3
+#define DEV  4
+#define FN   5
+#define ACCENT 6
 
 // Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
 // No app claims these, so they are safe for global hotkeys.
@@ -142,8 +143,8 @@
             bindings = <
         &kp Q         &kp W        &kp E        &kp R         &kp T      &kp Y      &kp U         &kp I        &kp O        &kp P
         &hml LCTRL A  &hml LALT S  &hml LGUI D  &hml LSHFT F  &kp G      &kp H      &hmr RSHFT J  &hmr RGUI K  &hmr RALT L  &hmr RCTRL SEMI
-&lt NUM LC(LA(W)) &kp Z   &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
-                                   &lt SYM ESC   &lt NAV SPACE  &mt LGUI TAB &kp RET    &kp BSPC      &kp DEL
+&lt FN LC(LA(W))  &kp Z   &kp X        &hml MEH C   &hml HYP V    &kp B      &kp N      &hmr HYP M    &hmr MEH COMMA &kp DOT    &kp FSLH        &kp APOS
+                                   &lt NUM ESC   &lt NAV SPACE  &mt LGUI TAB &kp RET    &kp BSPC      &lt SYM DEL
             >;
         };
 
@@ -160,12 +161,23 @@
             >;
         };
 
-        sym_func {
+        num {
             bindings = <
-           &none          &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LS(LA(N2))    &none             &kp F1   &kp F2   &kp F3   &kp F4   &kp F5
-           &none          &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
-&kp GRAVE  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none             &kp UNDERSCORE    &kp F7   &kp F8     &kp F9    &kp F10   &kp F11   &kp F12
-                                                &trans                 &trans            &trans            &none    &none    &none
+           &kp LS(LA(N2)) &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &none             &kp N1      &kp N2    &kp N3     &kp N4    &kp N5
+           &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none             &none             &kp N6      &kp N7    &kp N8     &kp N9    &kp N0
+&kp GRAVE  &none          &kp LBKT              &kp RBKT               &none             &none             &kp MINUS   &kp EQUAL &none      &none       &none     &kp BSLH
+                                                &none                  &trans            &trans            &none       &none     &trans
+            >;
+        };
+
+        // Shifted mirror of num, same positions. Own thumb-hold on Del
+        // (tap Del, hold Sym), independent of whether num is also held.
+        sym {
+            bindings = <
+        &none      &none            &none             &none              &none    &kp EXCLAMATION  &kp AT_SIGN     &kp HASH  &kp DOLLAR  &kp PERCENT
+        &none      &none            &none             &none              &none    &kp CARET        &kp AMPERSAND   &kp ASTERISK  &none                 &none
+&kp TILDE  &none           &none       &none             &none              &none    &kp UNDERSCORE   &kp PLUS        &none           &none             &none         &kp PIPE
+                                     &trans           &trans            &trans   &trans           &trans          &trans
             >;
         };
 
@@ -178,14 +190,14 @@
             >;
         };
 
-        // Numpad, held with the left outer pinky. Left home row carries plain
-        // mods so cmd+digit and shift+digit work while the layer is held.
-        num {
+        // Function keys, held with the left outer pinky. Left home row carries
+        // plain mods so cmd+f-key and shift+f-key work while the layer is held.
+        fn {
             bindings = <
-        &none      &none      &none      &none      &none       &kp N5      &kp N6    &kp N7     &kp N8    &kp N9
-        &kp LCTRL  &kp LALT   &kp LGUI   &kp LSHFT  &none       &kp N0      &kp N1    &kp N2     &kp N3    &kp N4
-&trans  &none      &none      &none      &none      &none       &kp PERIOD  &kp PLUS  &kp MINUS  &kp STAR  &kp FSLH  &kp CARET
-                              &none      &none      &none       &kp EQUAL   &none     &kp PERCENT
+        &none      &none      &none      &none      &none       &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
+        &kp LCTRL  &kp LALT   &kp LGUI   &kp LSHFT  &none       &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+&trans  &none      &none      &none      &none      &none       &kp F11 &kp F12 &none   &none   &none   &none
+                              &none      &none      &none       &none   &none   &none
             >;
         };
 
@@ -207,7 +219,7 @@
         compatible = "zmk,conditional-layers";
 
         device {
-            if-layers = <NAV SYM>;
+            if-layers = <NAV NUM>;
             then-layer = <DEV>;
         };
     };

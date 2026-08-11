@@ -1,5 +1,4 @@
-layout:
-  zmk_keyboard: totem
+layout: {zmk_keyboard: totem}
 layers:
   base:
   - Q
@@ -12,51 +11,34 @@ layers:
   - I
   - O
   - P
-  - t: A
-    h: LCTRL
-  - t: S
-    h: LALT
-  - t: D
-    h: LGUI
-  - t: F
-    h: LSHFT
+  - {t: A, h: LCTRL}
+  - {t: S, h: LALT}
+  - {t: D, h: LGUI}
+  - {t: F, h: LSHFT}
   - G
   - H
-  - t: J
-    h: RSHFT
-  - t: K
-    h: RGUI
-  - t: L
-    h: RALT
-  - t: ;
-    h: RCTRL
-  - t: Flow
-    s: ⌃⌥W
-    h: num
+  - {t: J, h: RSHFT}
+  - {t: K, h: RGUI}
+  - {t: L, h: RALT}
+  - {t: ;, h: RCTRL}
+  - {t: Ctl+Alt+W, h: fn}
   - Z
   - X
-  - t: C
-    h: Meh
-  - t: V
-    h: Hyper
+  - {t: C, h: Meh}
+  - {t: V, h: Hyper}
   - B
   - N
-  - t: M
-    h: Hyper
-  - t: ','
-    h: Meh
+  - {t: M, h: Hyper}
+  - {t: ',', h: Meh}
   - .
   - /
   - ''''
-  - t: ESC
-    h: sym_func
-  - t: SPACE
-    h: nav
-  - t: TAB
-    h: LGUI
+  - {t: ESC, h: num}
+  - {t: SPACE, h: nav}
+  - {t: TAB, h: LGUI}
   - RET
   - BSPC
-  - DEL
+  - {t: DEL, h: sym}
   nav:
   - HOME
   - BACKSPACE
@@ -90,71 +72,101 @@ layers:
   - ''
   - ''
   - ''
-  - t: ▽
-    type: trans
-  - type: held
-  - t: ▽
-    type: trans
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
-  sym_func:
-  - ''
+  num:
+  - €
   - '{'
   - '}'
-  - €
   - ''
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
   - ''
-  - '['
-  - ']'
-  - ENTER
-  - \
-  - F6
-  - RSHFT
-  - RGUI
-  - RALT
-  - RCTRL
-  - '`'
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
   - ''
   - (
   - )
   - ''
+  - ''
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '`'
+  - ''
+  - '['
+  - ']'
+  - ''
+  - ''
+  - '-'
+  - '='
+  - ''
+  - ''
+  - ''
+  - \
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  sym:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ^
+  - '&'
+  - '*'
+  - ''
+  - ''
+  - '~'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - _
-  - F7
-  - F8
-  - F9
-  - F10
-  - F11
-  - F12
-  - type: held
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - +
   - ''
   - ''
   - ''
+  - '|'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
   device:
   - ''
   - BRIGHTNESS DEC
   - BRIGHTNESS INC
   - ''
   - ''
-  - t: BT
-    h: '0'
-  - t: BT
-    h: '1'
-  - t: BT
-    h: '2'
-  - t: BT
-    h: '3'
-  - t: BT
-    h: '4'
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
   - MUTE
   - VOLUME DOWN
   - VOLUME UP
@@ -177,104 +189,94 @@ layers:
   - ''
   - ''
   - BT CLR
-  - type: held
-  - type: held
+  - {type: held}
+  - {type: held}
   - ''
   - ''
   - ''
   - ''
-  num:
+  fn:
   - ''
   - ''
   - ''
   - ''
   - ''
-  - '5'
-  - '6'
-  - '7'
-  - '8'
-  - '9'
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
   - LCTRL
   - LALT
   - LGUI
   - LSHFT
   - ''
-  - '0'
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - type: held
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - {type: held}
   - ''
   - ''
   - ''
   - ''
   - ''
-  - .
-  - +
-  - '-'
-  - '*'
-  - /
-  - ^
+  - F11
+  - F12
   - ''
   - ''
   - ''
-  - '='
   - ''
-  - '%'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   accent:
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - é
-  - ''
-  - ''
-  - t: ¨
-    s: dead key
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ¨, s: dead key}
   - ù
-  - t: ^
-    s: dead key
-  - ''
-  - ''
+  - {t: "^", s: dead key}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - à
-  - ''
+  - {t: ▽, type: trans}
   - è
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - type: held
-  - type: held
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {type: held}
   - ç
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
 combos:
-- p:
-  - 13
-  - 16
+- p: [13, 16]
   k: CAPS
-  l:
-  - base
-- p:
-  - 21
-  - 22
-  k:
-    t: accent
-    h: sticky
-  l:
-  - base
+  l: [base]
+- p: [21, 22]
+  k: {t: Accent, h: sticky}
+  l: [base]
