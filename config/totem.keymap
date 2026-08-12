@@ -19,6 +19,7 @@
 // default 10; smooth scrolling divides it further.
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 900
 #include <dt-bindings/zmk/pointing.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #define BASE 0
 #define NAV  1
@@ -27,8 +28,10 @@
 #define DEV  4
 #define FN   5
 #define ACCENT 6
-#define MOUSE  7
-#define SCROLL 8
+#define MOUSE   7
+#define PRECISE 8
+#define SCROLL  9
+#define FAST    10
 
 // Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
 // No app claims these, so they are safe for global hotkeys.
@@ -58,6 +61,22 @@
 
 / {
     behaviors {
+        // A second pointer instance with acceleration switched off, so the
+        // speed tiers hit their value on the first report instead of ramping
+        // to it. &mmv keeps its ramp for normal moves; the tiers do not want
+        // one -- a ramped "fast" spends the same half-second getting there and
+        // does not feel fast, and a ramped "precise" barely moves on a tap.
+        // exponent 0 makes time-to-max-speed-ms inert; it matches the shape
+        // ZMK ships for &msc.
+        mmv_flat: mmv_flat {
+            compatible = "zmk,behavior-input-two-axis";
+            #binding-cells = <1>;
+            x-input-code = <INPUT_REL_X>;
+            y-input-code = <INPUT_REL_Y>;
+            time-to-max-speed-ms = <300>;
+            acceleration-exponent = <0>;
+        };
+
         // Timeless home row mods, per urob / ZMK docs.
         // A mod only fires on cross-hand or thumb follow-ups, and never
         // mid-typing-stream. Same-hand rolls always resolve as taps.
@@ -87,14 +106,31 @@
     };
 
     macros {
-        // Click and leave the pointer layer in one tap, mirroring neru's
-        // Space = ["action left_click", "idle"]. Kept separate from the plain
-        // &mkp LCLK because a macro always releases the button, so this one
-        // cannot drag. Release before the layer change, or the button sticks.
-        click_exit: click_exit {
+        // Click and leave the pointer layer in one tap. This is the mouse
+        // layer's default right-thumb click, mirroring neru's own default,
+        // Space = ["action left_click", "idle"]. Staying in mode is the
+        // exception, reached by holding scroll, the left thumb's middle
+        // position (see the scroll layer, which overrides these three
+        // positions back to a plain, non-exiting &mkp) -- neru's own
+        // exception is the same shape, Shift+Space = "action left_click"
+        // with no idle. Release before the layer change, or the button
+        // sticks.
+        lclk_exit: lclk_exit {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_tap &mkp LCLK>, <&macro_tap &to BASE>;
+        };
+
+        rclk_exit: rclk_exit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &mkp RCLK>, <&macro_tap &to BASE>;
+        };
+
+        mclk_exit: mclk_exit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &mkp MCLK>, <&macro_tap &to BASE>;
         };
 
         // Drag lock. macro_press holds the button without releasing it, so both
@@ -270,13 +306,24 @@
         //
         // Miryoku's rule is that mouse movement mirrors cursor navigation, and
         // nav here is left-handed, so the pointer is too: move on e/s/d/f, the
-        // exact inverted-T nav uses for arrows, and clicks on the left thumbs
-        // (middle/left/right, outward from esc).
+        // exact inverted-T nav uses for arrows.
         //
-        // Scroll is on those same four keys, reached by holding the right outer
-        // thumb. A held layer rather than a mod-morph on purpose: a morph would
-        // burn one modifier, and whichever one it took would lose mod+drag with
-        // it -- shift+drag constrains the axis in Figma, alt+drag duplicates.
+        // Clicks are on the right thumbs, left/right/middle outward from
+        // center: left click nearest the fingers since it is the one held for
+        // drag, middle click outermost since it is rarest. They exit the
+        // layer by default -- aim, click, done, mirroring neru's own default
+        // (Space = ["action left_click", "idle"]). Holding scroll (the left
+        // thumb's middle position) and clicking is the exception that stays
+        // in mode, mirroring neru's Shift+Space (click with no idle) -- see
+        // the scroll layer, which overrides these three positions back to a
+        // plain, non-exiting &mkp. Esc is dropped: it was only reachable one
+        // thumb at a time anyway, since scroll occupies the thumb Esc used
+        // to sit on.
+        //
+        // Left thumbs are slow / scroll / fast, one hold each -- a single
+        // thumb only ever does one job at a time, so scroll lives on its own
+        // thumb rather than a separate key on row3. See precise/scroll/fast
+        // below for why each is a held layer rather than a modifier.
         //
         // Right home row is plain mods, same order as base. That is what makes
         // ctrl+scroll (zoom in Figma and browsers), shift+click, and cmd+click
@@ -284,34 +331,71 @@
         //
         // Miryoku holds this layer with an opposite-hand thumb; all three left
         // thumbs are already committed here, so it stays a toggle off nav's h,
-        // exited from the same position. Esc moves to the right thumb but stays
-        // a real Esc, so neru's overlay and macOS menus can be dismissed
-        // without leaving the layer.
+        // exited from the same position.
         mouse {
             bindings = <
-        &none      &none           &mmv MOVE_UP    &none            &none      &none      &none      &none     &none     &none
-        &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &to BASE   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
-&trans  &drag_on   &drag_off       &none           &none            &none      &none      &none      &none     &none     &none      &none
-                                   &mkp MCLK       &mkp LCLK        &mkp RCLK  &kp ESC    &click_exit &mo SCROLL
+        &none      &none           &mmv MOVE_UP    &none            &none      &none    &none    &none     &none     &none
+        &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &to BASE &kp RSHFT &kp RGUI  &kp RALT  &kp RCTRL
+&trans  &drag_on   &drag_off       &none           &none            &none      &none    &none     &none     &none     &none      &none
+                                   &mo PRECISE     &mo SCROLL       &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
             >;
         };
 
-        // Held from the mouse layer's right outer thumb. Scroll lands on the
-        // same e/s/d/f as move, everything else falls through, so the mouse
-        // layer's mods and clicks stay live -- shift+scroll is still horizontal
-        // scroll, ctrl+scroll is still zoom.
+        // Speed tiers on e/s/d/f, held from the left thumbs' outer two
+        // positions. Held layers rather than mod-morphs for the same reason
+        // as scroll: a real modifier would cost mod+drag.
+        //
+        // &mmv_flat, not &mmv: no ramp, so the value lands on the first
+        // report. That is the whole point of a tier -- a ramped tier is just
+        // the normal key with a different ceiling.
+        precise {
+            bindings = <
+        &trans  &trans                  &mmv_flat MOVE_Y(-150)   &trans                  &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &mmv_flat MOVE_X(-150)  &mmv_flat MOVE_Y(150)    &mmv_flat MOVE_X(150)   &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans                  &trans                   &trans                  &trans   &trans  &trans  &trans  &trans  &trans  &trans
+                                        &trans                   &trans                  &trans   &trans  &trans  &trans
+            >;
+        };
+
+        // Held from the left thumb's middle position -- physically between
+        // precise and fast, but this is not a speed tier: e/s/d/f becomes
+        // scroll, not a third move speed. It does two jobs on one thumb
+        // rather than splitting them across two keys:
+        //
+        // 1. Scroll on the same e/s/d/f as move. Everything else falls
+        //    through, so the mouse layer's mods stay live -- shift+scroll is
+        //    still horizontal scroll, ctrl+scroll is still zoom. Page up/down
+        //    on t/g, the same column nav uses for its own PG_UP/PG_DN below
+        //    UP/DOWN; mouse leaves that column &none, so this is scroll-only.
+        //
+        // 2. The right thumbs override back to plain, non-exiting clicks:
+        //    hold scroll (you are mid-navigation, finding the thing to
+        //    click) and tap a click, and it fires without dropping you out
+        //    of mouse mode -- left-thumb hold, right-thumb tap, a genuine
+        //    cross-hand chord. A held layer rather than a mod-morph here too:
+        //    a morph would need a real HID modifier, disturbing the right
+        //    home row's shift/cmd/ctrl/alt click meaning.
         scroll {
             bindings = <
-        &trans  &trans            &msc SCRL_UP     &trans            &trans   &trans  &trans  &trans  &trans  &trans
-        &trans  &msc SCRL_LEFT    &msc SCRL_DOWN   &msc SCRL_RIGHT   &trans   &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans            &trans           &trans            &trans   &trans  &trans  &trans  &trans  &trans  &trans
-                                  &trans           &trans            &trans   &trans  &trans  &trans
+        &trans  &trans            &msc SCRL_UP     &trans            &kp PG_UP    &trans  &trans     &trans     &trans     &trans
+        &trans  &msc SCRL_LEFT    &msc SCRL_DOWN   &msc SCRL_RIGHT   &kp PG_DN    &trans  &trans     &trans     &trans     &trans
+&trans  &trans  &trans            &trans           &trans            &trans      &trans  &trans     &trans     &trans     &trans  &trans
+                                  &trans           &trans            &trans      &mkp LCLK  &mkp RCLK  &mkp MCLK
+            >;
+        };
+
+        fast {
+            bindings = <
+        &trans  &trans                   &mmv_flat MOVE_Y(-4000)  &trans                   &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &mmv_flat MOVE_X(-4000)  &mmv_flat MOVE_Y(4000)   &mmv_flat MOVE_X(4000)   &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans                   &trans                   &trans                   &trans   &trans  &trans  &trans  &trans  &trans  &trans
+                                         &trans                   &trans                   &trans   &trans  &trans  &trans
             >;
         };
 
         // Spare for adding a layer live in ZMK Studio. Reserved layers are not
         // status-okay, so this does not shift any layer index above.
-        extra5 { status = "reserved"; };
+        extra8 { status = "reserved"; };
     };
 
     conditional_layers {

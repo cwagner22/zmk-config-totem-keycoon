@@ -306,18 +306,57 @@ layers:
   - ''
   - ''
   - ''
-  - MCLK
-  - LCLK
-  - RCLK
-  - ESC
-  - {t: LCLK, s: + to base}
+  - {t: precise, h: hold}
   - {t: scroll, h: hold}
+  - {t: fast, h: hold}
+  - {t: LCLK, s: '+ stay: scroll'}
+  - {t: RCLK, s: '+ stay: scroll'}
+  - {t: MCLK, s: '+ stay: scroll'}
+  precise:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ↑, s: precise}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ←, s: precise}
+  - {t: ↓, s: precise}
+  - {t: →, s: precise}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   scroll:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ↑, s: scroll}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - PG UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -327,9 +366,45 @@ layers:
   - {t: ←, s: scroll}
   - {t: ↓, s: scroll}
   - {t: →, s: scroll}
+  - PG DN
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - LCLK
+  - RCLK
+  - MCLK
+  fast:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ↑, s: fast}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ←, s: fast}
+  - {t: ↓, s: fast}
+  - {t: →, s: fast}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -351,6 +426,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
 combos:
 - p: [13, 16]
   k: CAPS
