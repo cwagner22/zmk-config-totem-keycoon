@@ -384,6 +384,9 @@
         //    SCRL_DOWN, etc.): macOS natural scrolling flips wheel input on
         //    both axes, and this cancels it so keys move the viewport the
         //    way they point.
+        //    t/g are page-jump wheel bursts, not &kp PG_UP/PG_DN: PG keys act
+        //    on the focused window, wheel events on the window under the
+        //    cursor, and everything else in this mode follows the cursor.
         //
         // 2. The right thumbs override back to plain, non-exiting clicks:
         //    hold scroll (you are mid-navigation, finding the thing to
@@ -394,8 +397,8 @@
         //    home row's shift/cmd/ctrl/alt click meaning.
         scroll {
             bindings = <
-        &trans  &trans            &msc SCRL_DOWN   &trans            &kp PG_UP    &trans  &trans     &trans     &trans     &trans
-        &trans  &msc SCRL_RIGHT   &msc SCRL_UP     &msc SCRL_LEFT    &kp PG_DN    &trans  &trans     &trans     &trans     &trans
+        &trans  &trans            &msc SCRL_DOWN   &trans            &msc MOVE_Y(-120)  &trans  &trans  &trans  &trans  &trans
+        &trans  &msc SCRL_RIGHT   &msc SCRL_UP     &msc SCRL_LEFT    &msc MOVE_Y(120)   &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans            &trans           &trans            &trans      &trans  &trans     &trans     &trans     &trans  &trans
                                   &trans           &trans            &trans      &mkp LCLK  &mkp RCLK  &mkp MCLK
             >;

@@ -356,7 +356,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ↑, s: scroll}
   - {t: ▽, type: trans}
-  - PG UP
+  - {t: ⇞, s: page}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -366,7 +366,7 @@ layers:
   - {t: ←, s: scroll}
   - {t: ↓, s: scroll}
   - {t: →, s: scroll}
-  - PG DN
+  - {t: ⇟, s: page}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
