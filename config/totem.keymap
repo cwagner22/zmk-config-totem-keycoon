@@ -378,6 +378,10 @@
         //    still horizontal scroll, ctrl+scroll is still zoom. Page up/down
         //    on t/g, the same column nav uses for its own PG_UP/PG_DN below
         //    UP/DOWN; mouse leaves that column &none, so this is scroll-only.
+        //    The SCRL_* bindings are deliberately crossed (the up key sends
+        //    SCRL_DOWN, etc.): macOS natural scrolling flips wheel input on
+        //    both axes, and this cancels it so keys move the viewport the
+        //    way they point.
         //
         // 2. The right thumbs override back to plain, non-exiting clicks:
         //    hold scroll (you are mid-navigation, finding the thing to
@@ -388,8 +392,8 @@
         //    home row's shift/cmd/ctrl/alt click meaning.
         scroll {
             bindings = <
-        &trans  &trans            &msc SCRL_UP     &trans            &kp PG_UP    &trans  &trans     &trans     &trans     &trans
-        &trans  &msc SCRL_LEFT    &msc SCRL_DOWN   &msc SCRL_RIGHT   &kp PG_DN    &trans  &trans     &trans     &trans     &trans
+        &trans  &trans            &msc SCRL_DOWN   &trans            &kp PG_UP    &trans  &trans     &trans     &trans     &trans
+        &trans  &msc SCRL_RIGHT   &msc SCRL_UP     &msc SCRL_LEFT    &kp PG_DN    &trans  &trans     &trans     &trans     &trans
 &trans  &trans  &trans            &trans           &trans            &trans      &trans  &trans     &trans     &trans     &trans  &trans
                                   &trans           &trans            &trans      &mkp LCLK  &mkp RCLK  &mkp MCLK
             >;
@@ -397,8 +401,8 @@
 
         fast {
             bindings = <
-        &trans  &trans                   &mmv_flat MOVE_Y(-4000)  &trans                   &trans   &trans  &trans  &trans  &trans  &trans
-        &trans  &mmv_flat MOVE_X(-4000)  &mmv_flat MOVE_Y(4000)   &mmv_flat MOVE_X(4000)   &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &trans                   &mmv_flat MOVE_Y(-2000)  &trans                   &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &mmv_flat MOVE_X(-2000)  &mmv_flat MOVE_Y(2000)   &mmv_flat MOVE_X(2000)   &trans   &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans                   &trans                   &trans                   &trans   &trans  &trans  &trans  &trans  &trans  &trans
                                          &trans                   &trans                   &trans   &trans  &trans  &trans
             >;
