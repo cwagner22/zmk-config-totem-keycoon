@@ -45,7 +45,7 @@ layers:
   - UP
   - DELETE
   - PG UP
-  - {t: Hyper+ESC, s: neru grid}
+  - {t: Hyper+H, s: neru grid}
   - ''
   - ''
   - ''
