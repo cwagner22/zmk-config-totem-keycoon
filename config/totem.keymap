@@ -16,9 +16,9 @@
 #include <dt-bindings/zmk/modifiers.h>
 
 // Pointer speed. Firmware default is 600, which crawls; scroll's default 10
-// was too slow on-device.
+// was too slow on-device and 25 too fast.
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 900
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 16
 #include <dt-bindings/zmk/pointing.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
