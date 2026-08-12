@@ -15,6 +15,11 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/modifiers.h>
 
+// Pointer speed. Firmware default is 600, which crawls. Scroll stays at the
+// default 10; smooth scrolling divides it further.
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 900
+#include <dt-bindings/zmk/pointing.h>
+
 #define BASE 0
 #define NAV  1
 #define NUM  2
@@ -22,6 +27,8 @@
 #define DEV  4
 #define FN   5
 #define ACCENT 6
+#define MOUSE  7
+#define SCROLL 8
 
 // Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
 // No app claims these, so they are safe for global hotkeys.
@@ -39,6 +46,14 @@
     // 300 gives an easy tap-then-hold window for auto-repeating tab
     // (cmd+tab cycling). Only the tab thumb uses &mt.
     quick-tap-ms = <300>;
+};
+
+// Ramp to full pointer speed over half a second, so a short tap nudges a few
+// pixels and a held key crosses the screen. exponent 1 = linear ramp.
+// &msc is left at its defaults, which already do not accelerate.
+&mmv {
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent = <1>;
 };
 
 / {
@@ -72,6 +87,32 @@
     };
 
     macros {
+        // Click and leave the pointer layer in one tap, mirroring neru's
+        // Space = ["action left_click", "idle"]. Kept separate from the plain
+        // &mkp LCLK because a macro always releases the button, so this one
+        // cannot drag. Release before the layer change, or the button sticks.
+        click_exit: click_exit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &mkp LCLK>, <&macro_tap &to BASE>;
+        };
+
+        // Drag lock. macro_press holds the button without releasing it, so both
+        // hands stay free to move and scroll mid-drag; drag_off drops it. Only
+        // worth reaching for on long drags -- holding the LCLK thumb and moving
+        // with the same hand's fingers is a real drag already.
+        drag_on: drag_on {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &mkp LCLK>;
+        };
+
+        drag_off: drag_off {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &mkp LCLK>;
+        };
+
         // macOS dead keys via option (e=acute, `=grave, i=circumflex, u=trema).
         // Needs keyboard type = ANSI, else option+` sends a section sign.
         fr_e_acute: fr_e_acute {
@@ -154,10 +195,19 @@
         // the trackpad; right home row carries plain mods for cmd+arrow.
         // x/c = history back/forward, v/b = prev/next tab. Device reuses
         // x/c for rewind/fast-forward.
+        //
+        // y triggers neru's jump grid on hyper+esc rather than option+esc, so
+        // no app can claim the chord. It lives here rather than on the mouse
+        // layer on purpose: nav is a hold layer, so releasing the thumb drops
+        // back to base, where the grid's qwert/asdfg/cvbnm/yuiop/hjkl; keys
+        // actually exist. On a toggled layer those positions are pointer keys
+        // and the grid is dead. The grid is the only thing neru is still used
+        // for; scrolling is the mouse layer's job now.
+        // h toggles the pointer layer, which is a mode, not a hold.
         nav {
             bindings = <
-             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none   &none      &none     &none     &none
-             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &none   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &kp LS(LC(LA(LG(ESC))))  &none  &none  &none  &none
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &tog MOUSE   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
 &none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
                                          &trans     &trans      &trans        &none   &none      &none
             >;
@@ -214,7 +264,54 @@
             >;
         };
 
-        extra3 { status = "reserved"; };
+        // Firmware pointer, arranged after miryoku's mouse layer: one hand owns
+        // the pointer, the other owns the modifiers, so every modified action
+        // is a cross-hand chord and nothing contorts.
+        //
+        // Miryoku's rule is that mouse movement mirrors cursor navigation, and
+        // nav here is left-handed, so the pointer is too: move on e/s/d/f, the
+        // exact inverted-T nav uses for arrows, and clicks on the left thumbs
+        // (middle/left/right, outward from esc).
+        //
+        // Scroll is on those same four keys, reached by holding the right outer
+        // thumb. A held layer rather than a mod-morph on purpose: a morph would
+        // burn one modifier, and whichever one it took would lose mod+drag with
+        // it -- shift+drag constrains the axis in Figma, alt+drag duplicates.
+        //
+        // Right home row is plain mods, same order as base. That is what makes
+        // ctrl+scroll (zoom in Figma and browsers), shift+click, and cmd+click
+        // work without the pointer hand leaving home position.
+        //
+        // Miryoku holds this layer with an opposite-hand thumb; all three left
+        // thumbs are already committed here, so it stays a toggle off nav's h,
+        // exited from the same position. Esc moves to the right thumb but stays
+        // a real Esc, so neru's overlay and macOS menus can be dismissed
+        // without leaving the layer.
+        mouse {
+            bindings = <
+        &none      &none           &mmv MOVE_UP    &none            &none      &none      &none      &none     &none     &none
+        &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &to BASE   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&trans  &drag_on   &drag_off       &none           &none            &none      &none      &none      &none     &none     &none      &none
+                                   &mkp MCLK       &mkp LCLK        &mkp RCLK  &kp ESC    &click_exit &mo SCROLL
+            >;
+        };
+
+        // Held from the mouse layer's right outer thumb. Scroll lands on the
+        // same e/s/d/f as move, everything else falls through, so the mouse
+        // layer's mods and clicks stay live -- shift+scroll is still horizontal
+        // scroll, ctrl+scroll is still zoom.
+        scroll {
+            bindings = <
+        &trans  &trans            &msc SCRL_UP     &trans            &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &msc SCRL_LEFT    &msc SCRL_DOWN   &msc SCRL_RIGHT   &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans            &trans           &trans            &trans   &trans  &trans  &trans  &trans  &trans  &trans
+                                  &trans           &trans            &trans   &trans  &trans  &trans
+            >;
+        };
+
+        // Spare for adding a layer live in ZMK Studio. Reserved layers are not
+        // status-okay, so this does not shift any layer index above.
+        extra5 { status = "reserved"; };
     };
 
     conditional_layers {

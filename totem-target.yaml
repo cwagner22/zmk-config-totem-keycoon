@@ -45,7 +45,7 @@ layers:
   - UP
   - DELETE
   - PG UP
-  - ''
+  - {t: Hyper+ESC, s: neru grid}
   - ''
   - ''
   - ''
@@ -55,7 +55,7 @@ layers:
   - DOWN
   - RIGHT
   - PG DN
-  - ''
+  - {t: mouse, s: toggle}
   - RSHFT
   - RGUI
   - RALT
@@ -273,6 +273,84 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  mouse:
+  - ''
+  - ''
+  - {t: ↑, s: move}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ←, s: move}
+  - {t: ↓, s: move}
+  - {t: →, s: move}
+  - ''
+  - {t: BASE, s: to}
+  - RSHFT
+  - RGUI
+  - RALT
+  - RCTRL
+  - {t: ▽, type: trans}
+  - {t: grab, s: drag on}
+  - {t: drop, s: drag off}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - MCLK
+  - LCLK
+  - RCLK
+  - ESC
+  - {t: LCLK, s: + to base}
+  - {t: scroll, h: hold}
+  scroll:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ↑, s: scroll}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ←, s: scroll}
+  - {t: ↓, s: scroll}
+  - {t: →, s: scroll}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
 combos:
 - p: [13, 16]
   k: CAPS
