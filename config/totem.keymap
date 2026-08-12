@@ -15,9 +15,10 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/modifiers.h>
 
-// Pointer speed. Firmware default is 600, which crawls. Scroll stays at the
-// default 10; smooth scrolling divides it further.
+// Pointer speed. Firmware default is 600, which crawls; scroll's default 10
+// was too slow on-device.
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 900
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 #include <dt-bindings/zmk/pointing.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
@@ -61,11 +62,12 @@
 
 / {
     behaviors {
-        // A second pointer instance with acceleration switched off, so the
-        // speed tiers hit their value on the first report instead of ramping
-        // to it. &mmv keeps its ramp for normal moves; the tiers do not want
-        // one -- a ramped "fast" spends the same half-second getting there and
-        // does not feel fast, and a ramped "precise" barely moves on a tap.
+        // A second pointer instance with acceleration switched off, used only
+        // by the precise tier: a ramped "precise" barely moves on a tap, so
+        // its 150 must land on the first report. Fast deliberately does NOT
+        // use this -- a flat fast next to a ramped normal feels 4x+ faster
+        // during the ramp window even at a 2.2x ceiling, so fast rides the
+        // same ramped &mmv as normal and differs only in ceiling.
         // exponent 0 makes time-to-max-speed-ms inert; it matches the shape
         // ZMK ships for &msc.
         mmv_flat: mmv_flat {
@@ -401,8 +403,8 @@
 
         fast {
             bindings = <
-        &trans  &trans                   &mmv_flat MOVE_Y(-2000)  &trans                   &trans   &trans  &trans  &trans  &trans  &trans
-        &trans  &mmv_flat MOVE_X(-2000)  &mmv_flat MOVE_Y(2000)   &mmv_flat MOVE_X(2000)   &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &trans              &mmv MOVE_Y(-2000)  &trans              &trans   &trans  &trans  &trans  &trans  &trans
+        &trans  &mmv MOVE_X(-2000)  &mmv MOVE_Y(2000)   &mmv MOVE_X(2000)   &trans   &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans                   &trans                   &trans                   &trans   &trans  &trans  &trans  &trans  &trans  &trans
                                          &trans                   &trans                   &trans   &trans  &trans  &trans
             >;
