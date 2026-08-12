@@ -36,7 +36,9 @@
 &mt {
     flavor = "balanced";
     tapping-term-ms = <200>;
-    quick-tap-ms = <175>;
+    // 300 gives an easy tap-then-hold window for auto-repeating tab
+    // (cmd+tab cycling). Only the tab thumb uses &mt.
+    quick-tap-ms = <300>;
 };
 
 / {
