@@ -307,11 +307,11 @@ layers:
   - ''
   - ''
   - {t: precise, h: hold}
-  - {t: scroll, h: hold}
+  - {t: scroll, h: hold, s: '+ click: stay'}
   - {t: fast, h: hold}
-  - {t: LCLK, s: '+ stay: scroll'}
-  - {t: RCLK, s: '+ stay: scroll'}
-  - {t: MCLK, s: '+ stay: scroll'}
+  - LCLK
+  - RCLK
+  - MCLK
   precise:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

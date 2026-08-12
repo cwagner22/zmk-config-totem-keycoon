@@ -105,6 +105,17 @@
         };
     };
 
+    // A two-axis behavior emits movement onto its own virtual input device;
+    // without a listener routing that device into the HID pipeline the events
+    // go nowhere and the keys silently do nothing -- precise/fast pressed
+    // fine and moved nothing. ZMK pairs its built-in &mmv with exactly this
+    // node (app/dts/behaviors/mouse_move.dtsi); a second instance needs its
+    // own.
+    mmv_flat_input_listener {
+        compatible = "zmk,input-listener";
+        device = <&mmv_flat>;
+    };
+
     macros {
         // Click and leave the pointer layer in one tap. This is the mouse
         // layer's default right-thumb click, mirroring neru's own default,
