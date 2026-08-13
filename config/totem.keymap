@@ -245,20 +245,25 @@
         // x/c = history back/forward, v/b = prev/next tab. Device reuses
         // x/c for rewind/fast-forward.
         //
-        // y triggers neru's jump grid on hyper+h rather than option+esc, so
-        // no app can claim the chord. It lives here rather than on the mouse
+        // y triggers neru's jump grid on hyper+y (the chord matches the key),
+        // so no app can claim it. It lives here rather than on the mouse
         // layer on purpose: nav is a hold layer, so releasing the thumb drops
         // back to base, where the grid's qwert/asdfg/cvbnm/yuiop/hjkl; keys
         // actually exist. On a toggled layer those positions are pointer keys
         // and the grid is dead. The grid is the only thing neru is still used
         // for; scrolling is the mouse layer's job now.
         // h toggles the pointer layer, which is a mode, not a hold.
+        //
+        // Right thumbs send shift+enter/backspace: with the grid open, the
+        // plain thumbs click-and-exit (neru binds Enter/Backspace), and
+        // holding this nav thumb turns the same thumbs into click-and-stay --
+        // the identical gesture to the mouse layer's scroll-hold clicks.
         nav {
             bindings = <
-             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &kp LS(LC(LA(LG(H))))  &none  &none  &none  &none
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &kp LS(LC(LA(LG(Y))))  &none  &none  &none  &none
              &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &tog MOUSE   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
 &none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
-                                         &trans     &trans      &trans        &none   &none      &none
+                                         &trans     &trans      &trans        &kp LS(RET)  &kp LS(BSPC)  &none
             >;
         };
 

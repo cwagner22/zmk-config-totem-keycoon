@@ -45,7 +45,7 @@ layers:
   - UP
   - DELETE
   - PG UP
-  - {t: Hyper+H, s: neru grid}
+  - {t: Hyper+Y, s: neru grid}
   - ''
   - ''
   - ''
@@ -75,8 +75,8 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - ''
-  - ''
+  - {t: Sft+RET, s: grid stay-click}
+  - {t: Sft+BSPC, s: grid stay-click}
   - ''
   num:
   - €
