@@ -75,8 +75,8 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - {t: Sft+RET, s: grid stay-click}
-  - {t: Sft+BSPC, s: grid stay-click}
+  - {t: Sft+RET, s: grid shift+click}
+  - ''
   - ''
   num:
   - €
