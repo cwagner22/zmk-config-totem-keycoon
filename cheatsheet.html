@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+<title>TOTEM pointer cheatsheet</title>
+<style>
+body{font-family:-apple-system,sans-serif;max-width:720px;margin:24px auto;padding:0 16px;color:#1a1a2e;background:#fff}
+h1{font-size:20px}h2{font-size:15px;margin:20px 0 6px;border-bottom:2px solid #e8e8f0;padding-bottom:3px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td{padding:4px 8px;border-bottom:1px solid #f0f0f5;vertical-align:top}
+td:first-child{white-space:nowrap;width:220px}
+kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:1px solid #d8d8e0;border-radius:4px;padding:1px 5px}
+.n{color:#888;font-size:12px}
+</style>
+<h1>TOTEM pointer cheatsheet</h1>
+
+<h2>Launch</h2>
+<table>
+<tr><td><kbd>nav</kbd>+<kbd>H</kbd></td><td>neru grid <span class="n">(= Hyper+H; also V-hold+H anywhere, or ⌘⌃⌥⇧H on any keyboard)</span></td></tr>
+<tr><td><kbd>nav</kbd>+<kbd>Y</kbd></td><td>toggle firmware mouse mode</td></tr>
+</table>
+
+<h2>Grid (neru)</h2>
+<table>
+<tr><td>letters</td><td>select cell — bands <kbd>qwert</kbd> <kbd>asdfg</kbd> <kbd>cvbnm</kbd> <kbd>yuiop</kbd> <kbd>hjkl;</kbd> — 3rd pick auto-clicks &amp; exits</td></tr>
+<tr><td><kbd>RET</kbd> / <kbd>BSPC</kbd></td><td>left / right click, exit</td></tr>
+<tr><td><kbd>space</kbd>-hold + <kbd>RET</kbd></td><td>shift+click, exit <span class="n">(hold space a beat first)</span></td></tr>
+<tr><td><kbd>tab</kbd>-hold + <kbd>RET</kbd></td><td>cmd+click, exit</td></tr>
+<tr><td><kbd>Tab</kbd> tap</td><td>undo one grid level</td></tr>
+<tr><td><kbd>space</kbd>-hold + <kbd>e s d f</kbd></td><td>scroll without closing the grid; <kbd>t</kbd>/<kbd>g</kbd> page</td></tr>
+<tr><td><kbd>,</kbd></td><td>switch to scroll mode</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>cancel</td></tr>
+</table>
+
+<h2>Scroll mode (neru)</h2>
+<table>
+<tr><td><kbd>e s d f</kbd> tap</td><td>scroll step up/left/down/right &nbsp;<span class="n">(holding s/d/f gives mods, not repeats)</span></td></tr>
+<tr><td><kbd>space</kbd>-hold + <kbd>e s d f</kbd></td><td>continuous scroll</td></tr>
+<tr><td><kbd>t</kbd> / <kbd>g</kbd></td><td>page up / down</td></tr>
+<tr><td>clicks</td><td>same as grid: <kbd>RET</kbd>, <kbd>BSPC</kbd>, <kbd>space</kbd>+<kbd>RET</kbd>, <kbd>tab</kbd>+<kbd>RET</kbd></td></tr>
+<tr><td><kbd>,</kbd></td><td>back to the grid</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>done</td></tr>
+</table>
+
+<h2>Mouse mode (firmware, toggled)</h2>
+<table>
+<tr><td><kbd>e s d f</kbd></td><td>move <span class="n">(ramps up while held)</span></td></tr>
+<tr><td><kbd>esc</kbd>-thumb</td><td><b>tap = exit</b> · hold = precise (slow) move</td></tr>
+<tr><td><kbd>space</kbd>-thumb hold</td><td>scroll on <kbd>e s d f</kbd>, pages on <kbd>t</kbd>/<kbd>g</kbd> · + right-thumb click = click <b>and stay</b></td></tr>
+<tr><td><kbd>tab</kbd>-thumb hold</td><td>fast move</td></tr>
+<tr><td><kbd>RET</kbd> / <kbd>BSPC</kbd> / <kbd>DEL</kbd></td><td>left / right / middle click — all exit to base</td></tr>
+<tr><td>right home row</td><td>plain ⇧ ⌘ ⌥ ⌃ for modified clicks/scroll</td></tr>
+<tr><td><kbd>z</kbd> / <kbd>x</kbd></td><td>drag grab / drop <span class="n">(lock the button, both hands free)</span></td></tr>
+</table>
+
+<h2>If the pointer acts frozen</h2>
+<table>
+<tr><td>stuck mouse button</td><td>mouse mode → <kbd>x</kbd>, or <kbd>neru action left_click --state up</kbd> in a terminal</td></tr>
+</table>
