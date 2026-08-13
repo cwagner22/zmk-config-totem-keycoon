@@ -341,6 +341,9 @@ path.combo {
 </g>
 <g transform="translate(520, 65)" class="key keypos-5">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
+<a href="#mouse">
+<text x="0" y="0" class="key tap layer-activator">mouse</text>
+</a><text x="0" y="-24" class="key shifted">toggle</text>
 </g>
 <g transform="translate(580, 56)" class="key keypos-6">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
@@ -378,9 +381,8 @@ path.combo {
 </g>
 <g transform="translate(520, 121)" class="key keypos-15">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<a href="#mouse">
-<text x="0" y="0" class="key tap layer-activator">mouse</text>
-</a><text x="0" y="-24" class="key shifted">toggle</text>
+<text x="0" y="0" class="key tap">Hyper+H</text>
+<text x="0" y="-24" class="key shifted"><tspan style="font-size: 78%">neru grid</tspan></text>
 </g>
 <g transform="translate(580, 112)" class="key keypos-16">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
@@ -1248,8 +1250,6 @@ path.combo {
 </g>
 <g transform="translate(520, 121)" class="key keypos-15">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">BASE</text>
-<text x="0" y="-24" class="key shifted">to</text>
 </g>
 <g transform="translate(580, 112)" class="key keypos-16">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
@@ -1310,8 +1310,8 @@ path.combo {
 </g>
 <g transform="translate(255, 236)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">precise</text>
-<text x="0" y="24" class="key hold">hold</text>
+<text x="0" y="0" class="key tap">exit</text>
+<text x="0" y="24" class="key hold">precise</text>
 </g>
 <g transform="translate(320, 245) rotate(15.0)" class="key keypos-33">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>

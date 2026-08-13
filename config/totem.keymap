@@ -79,6 +79,17 @@
             acceleration-exponent = <0>;
         };
 
+        // Mouse layer's esc thumb: tap exits to base (like Esc ends a neru
+        // mode), hold is the precise tier. hold-preferred so moving with
+        // e/s/d/f while held resolves precise immediately.
+        exit_precise: exit_precise {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&to>;
+        };
+
         // Timeless home row mods, per urob / ZMK docs.
         // A mod only fires on cross-hand or thumb follow-ups, and never
         // mid-typing-stream. Same-hand rolls always resolve as taps.
@@ -256,8 +267,8 @@
         // cmd+click is the tab thumb's cmd mod-tap held + plain ret.
         nav {
             bindings = <
-             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none  &none  &none  &none  &none
-             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &tog MOUSE   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &tog MOUSE  &none  &none  &none  &none
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &kp LS(LC(LA(LG(H))))   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
 &none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
                                          &trans     &trans      &trans        &kp LS(RET)  &none  &none
             >;
@@ -349,9 +360,9 @@
         mouse {
             bindings = <
         &none      &none           &mmv MOVE_UP    &none            &none      &none    &none    &none     &none     &none
-        &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &to BASE &kp RSHFT &kp RGUI  &kp RALT  &kp RCTRL
+        &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &none    &kp RSHFT &kp RGUI  &kp RALT  &kp RCTRL
 &trans  &drag_on   &drag_off       &none           &none            &none      &none    &none     &none     &none     &none      &none
-                                   &mo PRECISE     &mo SCROLL       &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
+                                   &exit_precise PRECISE BASE  &mo SCROLL  &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
             >;
         };
 
