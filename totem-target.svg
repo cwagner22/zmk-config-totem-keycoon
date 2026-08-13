@@ -341,8 +341,6 @@ path.combo {
 </g>
 <g transform="translate(520, 65)" class="key keypos-5">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Hyper+H</text>
-<text x="0" y="-24" class="key shifted"><tspan style="font-size: 78%">neru grid</tspan></text>
 </g>
 <g transform="translate(580, 56)" class="key keypos-6">
 <rect rx="6" ry="6" x="-28" y="-26" width="55" height="52" class="key"/>
