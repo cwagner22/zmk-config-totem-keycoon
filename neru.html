@@ -23,9 +23,9 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>RET</kbd> / <kbd>BSPC</kbd></td><td>left / right click, exit</td></tr>
 <tr><td><kbd>space</kbd>-hold + <kbd>RET</kbd></td><td>shift+click, exit <span class="n">(hold space a beat first)</span></td></tr>
 <tr><td><kbd>tab</kbd>-hold + <kbd>RET</kbd></td><td>cmd+click, exit</td></tr>
-<tr><td><kbd>Tab</kbd> tap</td><td>undo one grid level</td></tr>
+<tr><td><kbd>z</kbd></td><td>undo one grid level <span class="n">(synced; avoid Tab — it desyncs the firmware ladder)</span></td></tr>
 <tr><td><kbd>space</kbd>-hold + <kbd>e s d f</kbd></td><td>scroll without closing the grid; <kbd>t</kbd>/<kbd>g</kbd> page</td></tr>
-<tr><td><kbd>,</kbd></td><td>switch to scroll mode</td></tr>
+<tr><td><kbd>,</kbd></td><td>hop to firmware mouse mode (and <kbd>,</kbd> there reopens the grid)</td></tr>
 <tr><td><kbd>Esc</kbd></td><td>cancel</td></tr>
 </table>
 
@@ -54,4 +54,5 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <h2>If the pointer acts frozen</h2>
 <table>
 <tr><td>stuck mouse button</td><td>mouse mode → <kbd>x</kbd>, or <kbd>neru action left_click --state up</kbd> in a terminal</td></tr>
+<tr><td>grid keys act weird after a click</td><td>firmware ladder desynced (shift+click, Tab-undo, trackpad click) — tap <kbd>Esc</kbd> once</td></tr>
 </table>

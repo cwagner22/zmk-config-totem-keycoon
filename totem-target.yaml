@@ -39,6 +39,123 @@ layers:
   - RET
   - BSPC
   - {t: DEL, h: sym}
+  grid0:
+  - '&cell0 Q'
+  - '&cell0 W'
+  - '&cell0 E'
+  - '&cell0 R'
+  - '&cell0 T'
+  - '&cell0 Y'
+  - '&cell0 U'
+  - '&cell0 I'
+  - '&cell0 O'
+  - '&cell0 P'
+  - '&cell0 A'
+  - '&cell0 S'
+  - '&cell0 D'
+  - '&cell0 F'
+  - '&cell0 G'
+  - '&cell0 H'
+  - '&cell0 J'
+  - '&cell0 K'
+  - '&cell0 L'
+  - '&cell0 SEMI'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&cell0 C'
+  - '&cell0 V'
+  - '&cell0 B'
+  - '&cell0 N'
+  - '&cell0 M'
+  - '&comma_g 1'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&esc_g 1'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&ret_g 1'
+  - '&bspc_g 1'
+  - ''
+  grid1:
+  - '&cell1 Q'
+  - '&cell1 W'
+  - '&cell1 E'
+  - '&cell1 R'
+  - '&cell1 T'
+  - '&cell1 Y'
+  - '&cell1 U'
+  - '&cell1 I'
+  - '&cell1 O'
+  - '&cell1 P'
+  - '&cell1 A'
+  - '&cell1 S'
+  - '&cell1 D'
+  - '&cell1 F'
+  - '&cell1 G'
+  - '&cell1 H'
+  - '&cell1 J'
+  - '&cell1 K'
+  - '&cell1 L'
+  - '&cell1 SEMI'
+  - {t: ▽, type: trans}
+  - '&undo_g 2 1'
+  - {t: ▽, type: trans}
+  - '&cell1 C'
+  - '&cell1 V'
+  - '&cell1 B'
+  - '&cell1 N'
+  - '&cell1 M'
+  - '&comma_g 2'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&esc_g 2'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&ret_g 2'
+  - '&bspc_g 2'
+  - ''
+  grid2:
+  - '&cell2 Q'
+  - '&cell2 W'
+  - '&cell2 E'
+  - '&cell2 R'
+  - '&cell2 T'
+  - '&cell2 Y'
+  - '&cell2 U'
+  - '&cell2 I'
+  - '&cell2 O'
+  - '&cell2 P'
+  - '&cell2 A'
+  - '&cell2 S'
+  - '&cell2 D'
+  - '&cell2 F'
+  - '&cell2 G'
+  - '&cell2 H'
+  - '&cell2 J'
+  - '&cell2 K'
+  - '&cell2 L'
+  - '&cell2 SEMI'
+  - {t: ▽, type: trans}
+  - '&undo_g 3 2'
+  - {t: ▽, type: trans}
+  - '&cell2 C'
+  - '&cell2 V'
+  - '&cell2 B'
+  - '&cell2 N'
+  - '&cell2 M'
+  - '&comma_g 3'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&esc_g 3'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&ret_g 3'
+  - '&bspc_g 3'
+  - ''
   nav:
   - HOME
   - BACKSPACE

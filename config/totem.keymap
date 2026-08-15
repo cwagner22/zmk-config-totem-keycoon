@@ -22,17 +22,20 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-#define BASE 0
-#define NAV  1
-#define NUM  2
-#define SYM  3
-#define DEV  4
-#define FN   5
-#define ACCENT 6
-#define MOUSE   7
-#define PRECISE 8
-#define SCROLL  9
-#define FAST    10
+#define BASE  0
+#define GRID0 1
+#define GRID1 2
+#define GRID2 3
+#define NAV   4
+#define NUM   5
+#define SYM   6
+#define DEV   7
+#define FN    8
+#define ACCENT 9
+#define MOUSE   10
+#define PRECISE 11
+#define SCROLL  12
+#define FAST    13
 
 // Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
 // No app claims these, so they are safe for global hotkeys.
@@ -157,6 +160,93 @@
             bindings = <&macro_tap &mkp MCLK>, <&macro_tap &to BASE>;
         };
 
+        // Firmware-tracked neru grid, as a depth ladder: GRID0/1/2 mirror the
+        // grid's selection depth. Cell letters step up a level; the 3rd press
+        // matches neru's auto-click+exit and drops everything. z walks back
+        // down (neru binds z = undo one level). Esc / ret / bspc / comma
+        // close from any level. Desync paths (nav shift+click, tab-tap undo,
+        // trackpad clicks, manual V+H trigger) recover with one Esc tap.
+        cell0: cell0 {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&macro_param_1to1>, <&kp MACRO_PLACEHOLDER>, <&tog GRID0>, <&tog GRID1>;
+        };
+
+        cell1: cell1 {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&macro_param_1to1>, <&kp MACRO_PLACEHOLDER>, <&tog GRID1>, <&tog GRID2>;
+        };
+
+        cell2: cell2 {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&macro_param_1to1>, <&kp MACRO_PLACEHOLDER>, <&tog GRID2>;
+        };
+
+        esc_g: esc_g {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp ESC>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>;
+        };
+
+        ret_g: ret_g {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp RET>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>;
+        };
+
+        bspc_g: bspc_g {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp BSPC>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>;
+        };
+
+        // the hop: close neru, land in firmware mouse mode -- and back.
+        comma_g: comma_g {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp ESC>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>, <&tog MOUSE>;
+        };
+
+        undo_g: undo_g {
+            compatible = "zmk,behavior-macro-two-param";
+            #binding-cells = <2>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp Z>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>, <&macro_param_2to1>, <&tog MACRO_PLACEHOLDER>;
+        };
+
+        grid_open: grid_open {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp LS(LC(LA(LG(H))))>, <&tog GRID0>;
+        };
+
+        mouse_to_grid: mouse_to_grid {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&tog MOUSE>, <&kp LS(LC(LA(LG(H))))>, <&tog GRID0>;
+        };
+
         // Drag lock. macro_press holds the button without releasing it, so both
         // hands stay free to move and scroll mid-drag; drag_off drops it. Only
         // worth reaching for on long drags -- holding the LCLK thumb and moving
@@ -251,6 +341,39 @@
             >;
         };
 
+        // Depth ladder tracking neru's grid, below nav in priority. Cell
+        // letters advance a level and the 3rd press (= neru's auto-click)
+        // drops everything back to base. z walks down a level (neru undo);
+        // esc / ret / bspc / comma close from any depth; comma lands in
+        // firmware mouse mode. Space still holds nav through these, so
+        // space+esdf scroll and space+ret shift+click keep working.
+        grid0 {
+            bindings = <
+        &cell0 Q   &cell0 W   &cell0 E   &cell0 R   &cell0 T      &cell0 Y   &cell0 U   &cell0 I   &cell0 O   &cell0 P
+        &cell0 A   &cell0 S   &cell0 D   &cell0 F   &cell0 G      &cell0 H   &cell0 J   &cell0 K   &cell0 L   &cell0 SEMI
+&trans  &trans     &trans      &cell0 C   &cell0 V   &cell0 B      &cell0 N   &cell0 M   &comma_g GRID0  &trans  &trans  &trans
+                              &esc_g GRID0  &trans  &trans      &ret_g GRID0  &bspc_g GRID0  &none
+            >;
+        };
+
+        grid1 {
+            bindings = <
+        &cell1 Q   &cell1 W   &cell1 E   &cell1 R   &cell1 T      &cell1 Y   &cell1 U   &cell1 I   &cell1 O   &cell1 P
+        &cell1 A   &cell1 S   &cell1 D   &cell1 F   &cell1 G      &cell1 H   &cell1 J   &cell1 K   &cell1 L   &cell1 SEMI
+&trans  &undo_g GRID1 GRID0  &trans      &cell1 C   &cell1 V   &cell1 B      &cell1 N   &cell1 M   &comma_g GRID1  &trans  &trans  &trans
+                              &esc_g GRID1  &trans  &trans      &ret_g GRID1  &bspc_g GRID1  &none
+            >;
+        };
+
+        grid2 {
+            bindings = <
+        &cell2 Q   &cell2 W   &cell2 E   &cell2 R   &cell2 T      &cell2 Y   &cell2 U   &cell2 I   &cell2 O   &cell2 P
+        &cell2 A   &cell2 S   &cell2 D   &cell2 F   &cell2 G      &cell2 H   &cell2 J   &cell2 K   &cell2 L   &cell2 SEMI
+&trans  &undo_g GRID2 GRID1  &trans      &cell2 C   &cell2 V   &cell2 B      &cell2 N   &cell2 M   &comma_g GRID2  &trans  &trans  &trans
+                              &esc_g GRID2  &trans  &trans      &ret_g GRID2  &bspc_g GRID2  &none
+            >;
+        };
+
         // Left hand keeps arrows usable one-handed with the right hand on
         // the trackpad; right home row carries plain mods for cmd+arrow.
         // x/c = history back/forward, v/b = prev/next tab. Device reuses
@@ -268,7 +391,7 @@
         nav {
             bindings = <
              &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &tog MOUSE  &none  &none  &none  &none
-             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &kp LS(LC(LA(LG(H))))   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &grid_open   &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
 &none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
                                          &trans     &trans      &trans        &kp LS(RET)  &none  &none
             >;
@@ -361,7 +484,7 @@
             bindings = <
         &none      &none           &mmv MOVE_UP    &none            &none      &none    &none    &none     &none     &none
         &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &none    &kp RSHFT &kp RGUI  &kp RALT  &kp RCTRL
-&trans  &drag_on   &drag_off       &none           &none            &none      &none    &none     &none     &none     &none      &none
+&trans  &drag_on   &drag_off       &none           &none            &none      &none    &none     &mouse_to_grid  &none     &none      &none
                                    &exit_precise PRECISE BASE  &mo SCROLL  &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
             >;
         };
