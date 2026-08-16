@@ -156,6 +156,123 @@ layers:
   - '&ret_g 3'
   - '&bspc_g 3'
   - ''
+  gnav0:
+  - HOME
+  - BACKSPACE
+  - UP
+  - DELETE
+  - PG UP
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - END
+  - LEFT
+  - DOWN
+  - RIGHT
+  - PG DN
+  - ''
+  - RSHFT
+  - RGUI
+  - RALT
+  - RCTRL
+  - ''
+  - Gui+`
+  - Gui+[
+  - Gui+]
+  - Gui+Sft+[
+  - Gui+Sft+]
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - '&sret_g 1'
+  - ''
+  - ''
+  gnav1:
+  - HOME
+  - BACKSPACE
+  - UP
+  - DELETE
+  - PG UP
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - END
+  - LEFT
+  - DOWN
+  - RIGHT
+  - PG DN
+  - ''
+  - RSHFT
+  - RGUI
+  - RALT
+  - RCTRL
+  - ''
+  - Gui+`
+  - Gui+[
+  - Gui+]
+  - Gui+Sft+[
+  - Gui+Sft+]
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - '&sret_g 2'
+  - ''
+  - ''
+  gnav2:
+  - HOME
+  - BACKSPACE
+  - UP
+  - DELETE
+  - PG UP
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - END
+  - LEFT
+  - DOWN
+  - RIGHT
+  - PG DN
+  - ''
+  - RSHFT
+  - RGUI
+  - RALT
+  - RCTRL
+  - ''
+  - Gui+`
+  - Gui+[
+  - Gui+]
+  - Gui+Sft+[
+  - Gui+Sft+]
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - '&sret_g 3'
+  - ''
+  - ''
   nav:
   - HOME
   - BACKSPACE

@@ -17,25 +17,29 @@
 
 // Pointer speed. Firmware default is 600, which crawls; scroll's default 10
 // was too slow on-device and 25 too fast.
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 16
 #include <dt-bindings/zmk/pointing.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
 
 #define BASE  0
 #define GRID0 1
 #define GRID1 2
 #define GRID2 3
-#define NAV   4
-#define NUM   5
-#define SYM   6
-#define DEV   7
-#define FN    8
-#define ACCENT 9
-#define MOUSE   10
-#define PRECISE 11
-#define SCROLL  12
-#define FAST    13
+#define GNAV0 4
+#define GNAV1 5
+#define GNAV2 6
+#define NAV   7
+#define NUM   8
+#define SYM   9
+#define DEV   10
+#define FN    11
+#define ACCENT 12
+#define MOUSE   13
+#define PRECISE 14
+#define SCROLL  15
+#define FAST    16
 
 // Hyper = cmd+ctrl+alt+shift, Meh = ctrl+alt+shift.
 // No app claims these, so they are safe for global hotkeys.
@@ -63,14 +67,24 @@
     acceleration-exponent = <1>;
 };
 
+// Fast is a scaler on the pointer's event stream, not a set of faster keys:
+// holding the fast thumb doubles whatever &mmv is already emitting, so it
+// engages mid-hold -- press fast while moving and the cursor speeds up
+// instantly, release and it slows. (A key's binding is locked at press time,
+// so the old separate-bindings fast only applied to re-presses.)
+&mmv_input_listener {
+    fast {
+        layers = <FAST>;
+        input-processors = <&zip_xy_scaler 2 1>;
+    };
+};
+
 / {
     behaviors {
         // A second pointer instance with acceleration switched off, used only
         // by the precise tier: a ramped "precise" barely moves on a tap, so
-        // its 150 must land on the first report. Fast deliberately does NOT
-        // use this -- a flat fast next to a ramped normal feels 4x+ faster
-        // during the ramp window even at a 2.2x ceiling, so fast rides the
-        // same ramped &mmv as normal and differs only in ceiling.
+        // its 150 must land on the first report. Fast is not a binding at all
+        // anymore -- it is the x2 scaler on &mmv_input_listener above.
         // exponent 0 makes time-to-max-speed-ms inert; it matches the shape
         // ZMK ships for &msc.
         mmv_flat: mmv_flat {
@@ -231,6 +245,15 @@
             bindings = <&kp Z>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>, <&macro_param_2to1>, <&tog MACRO_PLACEHOLDER>;
         };
 
+        // shift+click that the ladder can see: LS(RET) plus the level drop.
+        sret_g: sret_g {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <5>;
+            bindings = <&kp LS(RET)>, <&macro_param_1to1>, <&tog MACRO_PLACEHOLDER>;
+        };
+
         grid_open: grid_open {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -352,7 +375,7 @@
         &cell0 Q   &cell0 W   &cell0 E   &cell0 R   &cell0 T      &cell0 Y   &cell0 U   &cell0 I   &cell0 O   &cell0 P
         &cell0 A   &cell0 S   &cell0 D   &cell0 F   &cell0 G      &cell0 H   &cell0 J   &cell0 K   &cell0 L   &cell0 SEMI
 &trans  &trans     &trans      &cell0 C   &cell0 V   &cell0 B      &cell0 N   &cell0 M   &comma_g GRID0  &trans  &trans  &trans
-                              &esc_g GRID0  &trans  &trans      &ret_g GRID0  &bspc_g GRID0  &none
+                              &esc_g GRID0  &mo GNAV0  &trans      &ret_g GRID0  &bspc_g GRID0  &none
             >;
         };
 
@@ -361,7 +384,7 @@
         &cell1 Q   &cell1 W   &cell1 E   &cell1 R   &cell1 T      &cell1 Y   &cell1 U   &cell1 I   &cell1 O   &cell1 P
         &cell1 A   &cell1 S   &cell1 D   &cell1 F   &cell1 G      &cell1 H   &cell1 J   &cell1 K   &cell1 L   &cell1 SEMI
 &trans  &undo_g GRID1 GRID0  &trans      &cell1 C   &cell1 V   &cell1 B      &cell1 N   &cell1 M   &comma_g GRID1  &trans  &trans  &trans
-                              &esc_g GRID1  &trans  &trans      &ret_g GRID1  &bspc_g GRID1  &none
+                              &esc_g GRID1  &mo GNAV1  &trans      &ret_g GRID1  &bspc_g GRID1  &none
             >;
         };
 
@@ -370,7 +393,43 @@
         &cell2 Q   &cell2 W   &cell2 E   &cell2 R   &cell2 T      &cell2 Y   &cell2 U   &cell2 I   &cell2 O   &cell2 P
         &cell2 A   &cell2 S   &cell2 D   &cell2 F   &cell2 G      &cell2 H   &cell2 J   &cell2 K   &cell2 L   &cell2 SEMI
 &trans  &undo_g GRID2 GRID1  &trans      &cell2 C   &cell2 V   &cell2 B      &cell2 N   &cell2 M   &comma_g GRID2  &trans  &trans  &trans
-                              &esc_g GRID2  &trans  &trans      &ret_g GRID2  &bspc_g GRID2  &none
+                              &esc_g GRID2  &mo GNAV2  &trans      &ret_g GRID2  &bspc_g GRID2  &none
+            >;
+        };
+
+        // nav mirror while grid depth 0 is active: same arrows/pages/mods,
+        // but ret drops the ladder with its shift+click, and the mouse toggle
+        // and grid trigger are blanked (both would ghost the ladder).
+        gnav0 {
+            bindings = <
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none  &none  &none  &none  &none
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &none  &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
+                                         &trans     &trans      &trans        &sret_g GRID0  &none      &none
+            >;
+        };
+
+        // nav mirror while grid depth 1 is active: same arrows/pages/mods,
+        // but ret drops the ladder with its shift+click, and the mouse toggle
+        // and grid trigger are blanked (both would ghost the ladder).
+        gnav1 {
+            bindings = <
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none  &none  &none  &none  &none
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &none  &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
+                                         &trans     &trans      &trans        &sret_g GRID1  &none      &none
+            >;
+        };
+
+        // nav mirror while grid depth 2 is active: same arrows/pages/mods,
+        // but ret drops the ladder with its shift+click, and the mouse toggle
+        // and grid trigger are blanked (both would ghost the ladder).
+        gnav2 {
+            bindings = <
+             &kp HOME     &kp BACKSPACE  &kp UP     &kp DELETE  &kp PG_UP     &none  &none  &none  &none  &none
+             &kp END      &kp LEFT       &kp DOWN   &kp RIGHT   &kp PG_DN     &none  &kp RSHFT  &kp RGUI  &kp RALT  &kp RCTRL
+&none        &kp LG(GRAVE) &kp LG(LBKT) &kp LG(RBKT) &kp LG(LS(LBKT)) &kp LG(LS(RBKT))  &none  &none      &none     &none     &none      &none
+                                         &trans     &trans      &trans        &sret_g GRID2  &none      &none
             >;
         };
 
@@ -539,12 +598,14 @@
             >;
         };
 
+        // Empty on purpose: fast is the x2 scaler on &mmv_input_listener
+        // (see top of file). Holding this layer's thumb is the whole feature.
         fast {
             bindings = <
-        &trans  &trans              &mmv MOVE_Y(-2000)  &trans              &trans   &trans  &trans  &trans  &trans  &trans
-        &trans  &mmv MOVE_X(-2000)  &mmv MOVE_Y(2000)   &mmv MOVE_X(2000)   &trans   &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans                   &trans                   &trans                   &trans   &trans  &trans  &trans  &trans  &trans  &trans
-                                         &trans                   &trans                   &trans   &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
