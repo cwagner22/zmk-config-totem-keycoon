@@ -456,22 +456,29 @@
             >;
         };
 
+        // Numbers across the top row like a normal keyboard; qwerty's
+        // punctuation strip (- = ' ` \) on the right home row in qwerty
+        // order. Brackets keep their spots; { } slide down beside ( ) since
+        // the numbers evicted them; euro next door. Thumbs transparent so
+        // ret/bspc work mid-number. Mod chords (zoom cmd+=, screenshot
+        // shift+cmd+4) pre-hold the base home-row mods, then num.
         num {
             bindings = <
-           &kp LS(LA(N2)) &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &none             &kp N1      &kp N2    &kp N3     &kp N4    &kp N5
-           &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none             &none             &kp N6      &kp N7    &kp N8     &kp N9    &kp N0
-&none      &none          &kp LBKT              &kp RBKT               &none             &none             &kp MINUS   &kp EQUAL &kp APOS   &kp GRAVE   &kp BSLH  &none
-                                                &none                  &trans            &trans            &none       &none     &trans
+           &kp N1         &kp N2                &kp N3                 &kp N4            &kp N5            &kp N6      &kp N7    &kp N8     &kp N9    &kp N0
+           &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACE    &kp RIGHT_BRACE   &kp MINUS   &kp EQUAL &kp APOS   &kp GRAVE &kp BSLH
+&trans     &none          &kp LBKT              &kp RBKT               &none             &none             &none       &none     &none      &none     &none     &none
+                                                &none                  &trans            &trans            &trans      &trans    &trans
             >;
         };
 
-        // Shifted mirror of num, same positions. Own thumb-hold on Del
-        // (tap Del, hold Sym), independent of whether num is also held.
+        // Shifted mirror of num, same positions: sym(key) = shift(num(key)),
+        // no exceptions. Own thumb-hold on Del (tap Del, hold Sym),
+        // independent of whether num is also held.
         sym {
             bindings = <
-        &none      &none            &none             &none              &none    &kp EXCLAMATION  &kp AT_SIGN     &kp HASH  &kp DOLLAR  &kp PERCENT
-        &none      &none            &none             &none              &none    &kp CARET        &kp AMPERSAND   &kp ASTERISK  &none                 &none
-&none      &none              &none    &none             &none              &none    &kp UNDERSCORE   &kp PLUS        &kp DOUBLE_QUOTES  &kp TILDE      &kp PIPE      &none
+        &kp EXCLAMATION &kp AT_SIGN     &kp HASH  &kp DOLLAR  &kp PERCENT    &kp CARET  &kp AMPERSAND  &kp ASTERISK  &kp LS(LA(N2))  &none
+        &none      &none            &none             &none              &none    &kp UNDERSCORE   &kp PLUS   &kp DOUBLE_QUOTES  &kp TILDE  &kp PIPE
+&trans     &none      &none            &none             &none              &none    &none            &none      &none              &none      &none      &none
                                      &trans           &trans            &trans   &trans           &trans          &trans
             >;
         };
