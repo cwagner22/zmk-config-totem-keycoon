@@ -178,11 +178,11 @@ layers:
   - RALT
   - RCTRL
   - ''
-  - Gui+`
+  - Gui+Sft+[
   - Gui+[
   - Gui+]
-  - Gui+Sft+[
   - Gui+Sft+]
+  - Gui+`
   - ''
   - ''
   - ''
@@ -217,11 +217,11 @@ layers:
   - RALT
   - RCTRL
   - ''
-  - Gui+`
+  - Gui+Sft+[
   - Gui+[
   - Gui+]
-  - Gui+Sft+[
   - Gui+Sft+]
+  - Gui+`
   - ''
   - ''
   - ''
@@ -256,11 +256,11 @@ layers:
   - RALT
   - RCTRL
   - ''
-  - Gui+`
+  - Gui+Sft+[
   - Gui+[
   - Gui+]
-  - Gui+Sft+[
   - Gui+Sft+]
+  - Gui+`
   - ''
   - ''
   - ''
@@ -295,11 +295,11 @@ layers:
   - RALT
   - RCTRL
   - ''
-  - Gui+`
+  - Gui+Sft+[
   - Gui+[
   - Gui+]
-  - Gui+Sft+[
   - Gui+Sft+]
+  - Gui+`
   - ''
   - ''
   - ''
@@ -326,18 +326,18 @@ layers:
   - ''
   - (
   - )
-  - '{'
-  - '}'
+  - ''
+  - ''
   - '-'
   - '='
   - ''''
   - '`'
   - \
   - {t: ▽, type: trans}
-  - ''
   - '['
+  - '{'
+  - '}'
   - ']'
-  - ''
   - ''
   - ''
   - ''
