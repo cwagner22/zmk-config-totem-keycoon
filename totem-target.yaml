@@ -63,14 +63,14 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '&cell0 C'
-  - '&cell0 V'
-  - '&cell0 B'
-  - '&cell0 N'
-  - '&cell0 M'
   - '&comma_g 1'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '&cell0 N'
+  - '&cell0 M'
+  - '&cell0 COMMA'
+  - '&cell0 DOT'
+  - '&cell0 FSLH'
   - {t: ▽, type: trans}
   - '&esc_g 1'
   - {t: ▽, type: trans}
@@ -102,14 +102,14 @@ layers:
   - {t: ▽, type: trans}
   - '&undo_g 2 1'
   - {t: ▽, type: trans}
-  - '&cell1 C'
-  - '&cell1 V'
-  - '&cell1 B'
-  - '&cell1 N'
-  - '&cell1 M'
   - '&comma_g 2'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '&cell1 N'
+  - '&cell1 M'
+  - '&cell1 COMMA'
+  - '&cell1 DOT'
+  - '&cell1 FSLH'
   - {t: ▽, type: trans}
   - '&esc_g 2'
   - {t: ▽, type: trans}
@@ -141,14 +141,14 @@ layers:
   - {t: ▽, type: trans}
   - '&undo_g 3 2'
   - {t: ▽, type: trans}
-  - '&cell2 C'
-  - '&cell2 V'
-  - '&cell2 B'
-  - '&cell2 N'
-  - '&cell2 M'
   - '&comma_g 3'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '&cell2 N'
+  - '&cell2 M'
+  - '&cell2 COMMA'
+  - '&cell2 DOT'
+  - '&cell2 FSLH'
   - {t: ▽, type: trans}
   - '&esc_g 3'
   - {t: ▽, type: trans}
@@ -531,7 +531,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: grab, s: drag on}
   - {t: drop, s: drag off}
-  - ''
+  - {t: → grid, s: hop}
   - ''
   - ''
   - ''
@@ -541,7 +541,7 @@ layers:
   - ''
   - ''
   - {t: exit, h: precise}
-  - {t: scroll, h: hold, s: '+ click: stay'}
+  - {t: LCLK, h: scroll, s: tap=stay-click}
   - {t: fast, h: hold}
   - LCLK
   - RCLK

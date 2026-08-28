@@ -96,6 +96,17 @@
             acceleration-exponent = <0>;
         };
 
+        // Mouse layer's space thumb: tap is a left click that stays in mouse
+        // mode, hold is the scroll layer. hold-preferred so scrolling with
+        // e/s/d/f engages immediately; only a lone crisp tap clicks.
+        click_scroll: click_scroll {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&mkp>;
+        };
+
         // Mouse layer's esc thumb: tap exits to base (like Esc ends a neru
         // mode), hold is the precise tier. hold-preferred so moving with
         // e/s/d/f while held resolves precise immediately.
@@ -374,7 +385,7 @@
             bindings = <
         &cell0 Q   &cell0 W   &cell0 E   &cell0 R   &cell0 T      &cell0 Y   &cell0 U   &cell0 I   &cell0 O   &cell0 P
         &cell0 A   &cell0 S   &cell0 D   &cell0 F   &cell0 G      &cell0 H   &cell0 J   &cell0 K   &cell0 L   &cell0 SEMI
-&trans  &trans     &trans      &cell0 C   &cell0 V   &cell0 B      &cell0 N   &cell0 M   &comma_g GRID0  &trans  &trans  &trans
+&trans  &trans     &trans      &comma_g GRID0   &trans   &trans      &cell0 N   &cell0 M   &cell0 COMMA  &cell0 DOT  &cell0 FSLH  &trans
                               &esc_g GRID0  &mo GNAV0  &trans      &ret_g GRID0  &bspc_g GRID0  &none
             >;
         };
@@ -383,7 +394,7 @@
             bindings = <
         &cell1 Q   &cell1 W   &cell1 E   &cell1 R   &cell1 T      &cell1 Y   &cell1 U   &cell1 I   &cell1 O   &cell1 P
         &cell1 A   &cell1 S   &cell1 D   &cell1 F   &cell1 G      &cell1 H   &cell1 J   &cell1 K   &cell1 L   &cell1 SEMI
-&trans  &undo_g GRID1 GRID0  &trans      &cell1 C   &cell1 V   &cell1 B      &cell1 N   &cell1 M   &comma_g GRID1  &trans  &trans  &trans
+&trans  &undo_g GRID1 GRID0  &trans      &comma_g GRID1   &trans   &trans      &cell1 N   &cell1 M   &cell1 COMMA  &cell1 DOT  &cell1 FSLH  &trans
                               &esc_g GRID1  &mo GNAV1  &trans      &ret_g GRID1  &bspc_g GRID1  &none
             >;
         };
@@ -392,7 +403,7 @@
             bindings = <
         &cell2 Q   &cell2 W   &cell2 E   &cell2 R   &cell2 T      &cell2 Y   &cell2 U   &cell2 I   &cell2 O   &cell2 P
         &cell2 A   &cell2 S   &cell2 D   &cell2 F   &cell2 G      &cell2 H   &cell2 J   &cell2 K   &cell2 L   &cell2 SEMI
-&trans  &undo_g GRID2 GRID1  &trans      &cell2 C   &cell2 V   &cell2 B      &cell2 N   &cell2 M   &comma_g GRID2  &trans  &trans  &trans
+&trans  &undo_g GRID2 GRID1  &trans      &comma_g GRID2   &trans   &trans      &cell2 N   &cell2 M   &cell2 COMMA  &cell2 DOT  &cell2 FSLH  &trans
                               &esc_g GRID2  &mo GNAV2  &trans      &ret_g GRID2  &bspc_g GRID2  &none
             >;
         };
@@ -550,8 +561,8 @@
             bindings = <
         &none      &none           &mmv MOVE_UP    &none            &none      &none    &none    &none     &none     &none
         &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &none    &kp RSHFT &kp RGUI  &kp RALT  &kp RCTRL
-&trans  &drag_on   &drag_off       &none           &none            &none      &none    &none     &mouse_to_grid  &none     &none      &none
-                                   &exit_precise PRECISE BASE  &mo SCROLL  &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
+&trans  &drag_on   &drag_off       &mouse_to_grid  &none            &none      &none    &none     &none     &none     &none      &none
+                                   &exit_precise PRECISE BASE  &click_scroll SCROLL LCLK  &mo FAST   &lclk_exit  &rclk_exit  &mclk_exit
             >;
         };
 
