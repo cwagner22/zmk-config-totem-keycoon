@@ -430,26 +430,26 @@ layers:
   - ''
   - ''
   fn:
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
   - F1
   - F2
   - F3
   - F4
   - F5
-  - LCTRL
-  - LALT
-  - LGUI
-  - LSHFT
-  - ''
   - F6
   - F7
   - F8
   - F9
   - F10
+  - LCTRL
+  - LALT
+  - LGUI
+  - LSHFT
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - {type: held}
   - ''
   - ''

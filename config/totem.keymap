@@ -507,8 +507,8 @@
         // plain mods so cmd+f-key and shift+f-key work while the layer is held.
         fn {
             bindings = <
-        &none      &none      &none      &none      &none       &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
-        &kp LCTRL  &kp LALT   &kp LGUI   &kp LSHFT  &none       &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+        &kp F1     &kp F2     &kp F3     &kp F4     &kp F5      &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
+        &kp LCTRL  &kp LALT   &kp LGUI   &kp LSHFT  &none       &none   &none   &none   &none   &none
 &trans  &none      &none      &none      &none      &none       &kp F11 &kp F12 &none   &none   &none   &none
                               &none      &none      &none       &none   &none   &none
             >;
