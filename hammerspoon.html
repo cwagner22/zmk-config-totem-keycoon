@@ -21,13 +21,14 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>Ctrl+G</kbd></td><td>center, repeat to cycle size 100% → 75% → 50%</td></tr>
 </table>
 
-<h2>Maximize on layout — <kbd>Ctrl+Down</kbd> / <kbd>Ctrl+Up</kbd></h2>
+<h2>Maximize on layout — <kbd>Ctrl+Alt</kbd>+<kbd>d</kbd> / <kbd>e</kbd></h2>
+<p>Acts on a fixed app list: Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, never moved to a different screen.</p>
 <table>
-<tr><td><kbd>Ctrl+Down</kbd></td><td>re-maximize the focused app only</td></tr>
-<tr><td><kbd>Ctrl+Up</kbd></td><td>re-maximize every app below</td></tr>
-<tr><td>monitor plug/unplug</td><td>same as <kbd>Ctrl+Up</kbd>, fires ~2s after the screen settles</td></tr>
+<tr><td><kbd>Ctrl+Alt+D</kbd></td><td>re-maximize the focused app only (no-op if it isn't in the list)</td></tr>
+<tr><td><kbd>Ctrl+Alt+E</kbd></td><td>re-maximize every app in the list</td></tr>
+<tr><td>monitor plug/unplug</td><td>same as <kbd>Ctrl+Alt+E</kbd>, fires ~2s after the screen settles</td></tr>
 </table>
-<p>Apps: Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, not moved to a different screen.</p>
+<p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd>: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event.</p>
 
 <h2>Move to other screen — <kbd>Ctrl+Alt+G</kbd></h2>
 <p>One key toggles since there are only 2 screens.</p>
