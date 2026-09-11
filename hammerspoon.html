@@ -10,7 +10,7 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 </style>
 
 <h2>Window mode — <kbd>Meh+W</kbd> toggles (Hammerspoon, <code>~/.hammerspoon/windows-position.lua</code>)</h2>
-<p>A modal: press <kbd>Meh+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Meh+W</kbd> again) to exit. The arrow keys exit on their own as soon as they fire — they're one-shot, one press is the whole job. <kbd>e s d f</kbd> (resize/snap) and <kbd>c</kbd> (full-screen %) leave the mode running, since pressing again is how you cycle to the next size. An on-screen alert stays up the whole time as a reminder you're in it.</p>
+<p>A modal: press <kbd>Meh+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Meh+W</kbd> again) to exit. <kbd>g</kbd>, <kbd>Shift+g</kbd>, and the arrow keys exit on their own as soon as they fire — they're one-shot, one press is the whole job, no cycle to land wrong on. <kbd>e s d f</kbd> (resize/snap) and <kbd>c</kbd> (center %) leave the mode running, since pressing again is how you cycle to the next size. An on-screen alert stays up the whole time as a reminder you're in it.</p>
 <p>On the Totem, <kbd>Meh</kbd> is the home-row hold on <kbd>,</kbd> (or <kbd>C</kbd>) — <code>ctrl+alt+shift</code>, no cmd. Not <kbd>Ctrl+Alt+W</kbd>: that's Wispr Flow's dictation trigger (<code>totem.keymap:373</code>). Not <kbd>Hyper</kbd> (<kbd>V</kbd>/<kbd>M</kbd> hold): <kbd>Hyper+H</kbd> is already the neru grid, and macOS's own Caps-Lock Hyper is a separate, fully-claimed namespace of app launchers (Karabiner). Meh was free — <code>totem.keymap</code> earmarks it for exactly this ("no app claims these, so they are safe for global hotkeys"). Nothing below is bound outside the mode — that's the point: it used to be bare <kbd>Ctrl+E/S/D/F/G</kbd> and <kbd>Ctrl+Alt+D/E/G</kbd> all the time, which shadowed normal app shortcuts (<kbd>Ctrl+S</kbd>=save, <kbd>Ctrl+Alt+D</kbd>=duplicate tab, etc).</p>
 
 <table>
@@ -21,6 +21,8 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>s</kbd> + <kbd>f</kbd> held</td><td>full width</td></tr>
 <tr><td><kbd>e</kbd> + <kbd>d</kbd> held</td><td>full height</td></tr>
 <tr><td><kbd>c</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
+<tr><td><kbd>g</kbd> <i>(one-shot)</i></td><td>full size: fill the whole screen, still an ordinary window (deterministic — unlike <kbd>c</kbd>, always lands here regardless of where its cycle was)</td></tr>
+<tr><td><kbd>Shift+g</kbd> <i>(one-shot)</i></td><td>actual macOS full screen: separate Space, no menu bar/Dock</td></tr>
 <tr><td><kbd>↑</kbd> <i>(one-shot)</i></td><td>re-apply the focused app's configured layout (no-op if it has none)</td></tr>
 <tr><td><kbd>↓</kbd> <i>(one-shot)</i></td><td>re-apply every app's configured layout</td></tr>
 <tr><td><kbd>←</kbd> <i>(one-shot)</i></td><td>send focused window to the previous screen, keeping relative size/position</td></tr>
