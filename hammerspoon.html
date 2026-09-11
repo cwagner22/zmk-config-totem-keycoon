@@ -21,13 +21,13 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>s</kbd> + <kbd>f</kbd> held</td><td>full width</td></tr>
 <tr><td><kbd>e</kbd> + <kbd>d</kbd> held</td><td>full height</td></tr>
 <tr><td><kbd>c</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
-<tr><td><kbd>↑</kbd> <i>(one-shot)</i></td><td>re-maximize the focused app (no-op if it isn't in the fixed app list below)</td></tr>
-<tr><td><kbd>↓</kbd> <i>(one-shot)</i></td><td>re-maximize every app in the list</td></tr>
+<tr><td><kbd>↑</kbd> <i>(one-shot)</i></td><td>re-apply the focused app's configured layout (no-op if it has none)</td></tr>
+<tr><td><kbd>↓</kbd> <i>(one-shot)</i></td><td>re-apply every app's configured layout</td></tr>
 <tr><td><kbd>←</kbd> <i>(one-shot)</i></td><td>send focused window to the previous screen, keeping relative size/position</td></tr>
 <tr><td><kbd>→</kbd> <i>(one-shot)</i></td><td>send focused window to the next screen, same</td></tr>
 </table>
-<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys — the actual arrow keys are a separate, one-shot group for maximize/screen-move.</p>
+<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys — the actual arrow keys are a separate, one-shot group for layout/screen-move.</p>
 
-<h2>Fixed app list (for <kbd>↑</kbd> / <kbd>↓</kbd>)</h2>
-<p>Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, never moved to a different screen. Also auto-applied on monitor plug/unplug (~2s after the screen settles) and on Hammerspoon reload.</p>
+<h2>Configured app layouts (for <kbd>↑</kbd> / <kbd>↓</kbd>)</h2>
+<p>The <code>layouts</code> table in <code>windows-position.lua</code> is a list of {app names, layout function} entries — the function could position by grid cell, pin to a screen, etc. Only one entry is defined today, and its function is <code>maximize</code>, applied to: Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition. That's a choice of this one entry, not a limit of the mechanism — add another entry with a different function for other apps and it works the same way. Also auto-applied on monitor plug/unplug (~2s after the screen settles) and on Hammerspoon reload.</p>
 <p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd> for this: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event — same reason the mode needs its own toggle key rather than reusing an arrow combo.</p>
