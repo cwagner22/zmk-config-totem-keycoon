@@ -9,29 +9,23 @@ td:first-child{white-space:nowrap;width:220px}
 kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:1px solid #d8d8e0;border-radius:4px;padding:1px 5px}
 </style>
 
-<h2>Resize — <kbd>Ctrl</kbd>+<kbd>e s d f</kbd> (Hammerspoon, <code>~/.hammerspoon/windows-position.lua</code>)</h2>
-<p>Same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys.</p>
-<table>
-<tr><td><kbd>Ctrl+S</kbd></td><td>snap left, repeat to cycle width 1/2 → 1/3 → 2/3</td></tr>
-<tr><td><kbd>Ctrl+F</kbd></td><td>snap right, same cycle</td></tr>
-<tr><td><kbd>Ctrl+E</kbd></td><td>snap top, repeat to cycle height 1/2 → 1/3 → 2/3</td></tr>
-<tr><td><kbd>Ctrl+D</kbd></td><td>snap bottom, same cycle</td></tr>
-<tr><td><kbd>Ctrl+S</kbd> + <kbd>Ctrl+F</kbd> held</td><td>full width</td></tr>
-<tr><td><kbd>Ctrl+E</kbd> + <kbd>Ctrl+D</kbd> held</td><td>full height</td></tr>
-<tr><td><kbd>Ctrl+G</kbd></td><td>center, repeat to cycle size 100% → 75% → 50%</td></tr>
-</table>
+<h2>Window mode — <kbd>Ctrl+Alt+W</kbd> toggles (Hammerspoon, <code>~/.hammerspoon/windows-position.lua</code>)</h2>
+<p>A modal: press <kbd>Ctrl+Alt+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Ctrl+Alt+W</kbd> again) to exit. An on-screen alert stays up the whole time as a reminder you're in it. Nothing below is bound outside the mode — that's the point: it used to be bare <kbd>Ctrl+E/S/D/F/G</kbd> and <kbd>Ctrl+Alt+D/E/G</kbd> all the time, which shadowed normal app shortcuts (<kbd>Ctrl+S</kbd>=save, <kbd>Ctrl+Alt+D</kbd>=duplicate tab, etc).</p>
 
-<h2>Maximize on layout — <kbd>Ctrl+Alt</kbd>+<kbd>d</kbd> / <kbd>e</kbd></h2>
-<p>Acts on a fixed app list: Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, never moved to a different screen.</p>
 <table>
-<tr><td><kbd>Ctrl+Alt+D</kbd></td><td>re-maximize the focused app only (no-op if it isn't in the list)</td></tr>
-<tr><td><kbd>Ctrl+Alt+E</kbd></td><td>re-maximize every app in the list</td></tr>
-<tr><td>monitor plug/unplug</td><td>same as <kbd>Ctrl+Alt+E</kbd>, fires ~2s after the screen settles</td></tr>
+<tr><td><kbd>s</kbd></td><td>snap left, repeat to cycle width 1/2 → 1/3 → 2/3</td></tr>
+<tr><td><kbd>f</kbd></td><td>snap right, same cycle</td></tr>
+<tr><td><kbd>e</kbd></td><td>snap top, repeat to cycle height 1/2 → 1/3 → 2/3</td></tr>
+<tr><td><kbd>d</kbd></td><td>snap bottom, same cycle</td></tr>
+<tr><td><kbd>s</kbd> + <kbd>f</kbd> held</td><td>full width</td></tr>
+<tr><td><kbd>e</kbd> + <kbd>d</kbd> held</td><td>full height</td></tr>
+<tr><td><kbd>g</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
+<tr><td><kbd>z</kbd></td><td>re-maximize the focused app (no-op if it isn't in the fixed app list below)</td></tr>
+<tr><td><kbd>Shift+z</kbd></td><td>re-maximize every app in the list</td></tr>
+<tr><td><kbd>n</kbd></td><td>send focused window to the other screen, keeping relative size/position</td></tr>
 </table>
-<p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd>: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event.</p>
+<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys.</p>
 
-<h2>Move to other screen — <kbd>Ctrl+Alt+G</kbd></h2>
-<p>One key toggles since there are only 2 screens.</p>
-<table>
-<tr><td><kbd>Ctrl+Alt+G</kbd></td><td>send focused window to the other screen</td></tr>
-</table>
+<h2>Fixed app list (for <kbd>z</kbd> / <kbd>Shift+z</kbd>)</h2>
+<p>Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, never moved to a different screen. Also auto-applied on monitor plug/unplug (~2s after the screen settles) and on Hammerspoon reload.</p>
+<p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd> for this: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event — same reason the mode needs its own toggle key rather than reusing an arrow combo.</p>
