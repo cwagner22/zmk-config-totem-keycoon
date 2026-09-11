@@ -10,7 +10,7 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 </style>
 
 <h2>Window mode — <kbd>Meh+W</kbd> toggles (Hammerspoon, <code>~/.hammerspoon/windows-position.lua</code>)</h2>
-<p>A modal: press <kbd>Meh+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Meh+W</kbd> again) to exit. <kbd>z</kbd>, <kbd>Shift+z</kbd>, and <kbd>n</kbd> exit on their own as soon as they fire — they're one-shot. <kbd>e s d f g</kbd> leave the mode running, since resizing/fullscreen-cycling is meant to be repeated. An on-screen alert stays up the whole time as a reminder you're in it.</p>
+<p>A modal: press <kbd>Meh+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Meh+W</kbd> again) to exit. The arrow keys exit on their own as soon as they fire — they're one-shot, one press is the whole job. <kbd>e s d f</kbd> (resize/snap) and <kbd>c</kbd> (full-screen %) leave the mode running, since pressing again is how you cycle to the next size. An on-screen alert stays up the whole time as a reminder you're in it.</p>
 <p>On the Totem, <kbd>Meh</kbd> is the home-row hold on <kbd>,</kbd> (or <kbd>C</kbd>) — <code>ctrl+alt+shift</code>, no cmd. Not <kbd>Ctrl+Alt+W</kbd>: that's Wispr Flow's dictation trigger (<code>totem.keymap:373</code>). Not <kbd>Hyper</kbd> (<kbd>V</kbd>/<kbd>M</kbd> hold): <kbd>Hyper+H</kbd> is already the neru grid, and macOS's own Caps-Lock Hyper is a separate, fully-claimed namespace of app launchers (Karabiner). Meh was free — <code>totem.keymap</code> earmarks it for exactly this ("no app claims these, so they are safe for global hotkeys"). Nothing below is bound outside the mode — that's the point: it used to be bare <kbd>Ctrl+E/S/D/F/G</kbd> and <kbd>Ctrl+Alt+D/E/G</kbd> all the time, which shadowed normal app shortcuts (<kbd>Ctrl+S</kbd>=save, <kbd>Ctrl+Alt+D</kbd>=duplicate tab, etc).</p>
 
 <table>
@@ -20,13 +20,14 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>d</kbd></td><td>snap bottom, same cycle</td></tr>
 <tr><td><kbd>s</kbd> + <kbd>f</kbd> held</td><td>full width</td></tr>
 <tr><td><kbd>e</kbd> + <kbd>d</kbd> held</td><td>full height</td></tr>
-<tr><td><kbd>g</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
-<tr><td><kbd>z</kbd> <i>(one-shot)</i></td><td>re-maximize the focused app (no-op if it isn't in the fixed app list below)</td></tr>
-<tr><td><kbd>Shift+z</kbd> <i>(one-shot)</i></td><td>re-maximize every app in the list</td></tr>
-<tr><td><kbd>n</kbd> <i>(one-shot)</i></td><td>send focused window to the other screen, keeping relative size/position</td></tr>
+<tr><td><kbd>c</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
+<tr><td><kbd>↑</kbd> <i>(one-shot)</i></td><td>re-maximize the focused app (no-op if it isn't in the fixed app list below)</td></tr>
+<tr><td><kbd>↓</kbd> <i>(one-shot)</i></td><td>re-maximize every app in the list</td></tr>
+<tr><td><kbd>←</kbd> <i>(one-shot)</i></td><td>send focused window to the previous screen, keeping relative size/position</td></tr>
+<tr><td><kbd>→</kbd> <i>(one-shot)</i></td><td>send focused window to the next screen, same</td></tr>
 </table>
-<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys.</p>
+<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys — the actual arrow keys are a separate, one-shot group for maximize/screen-move.</p>
 
-<h2>Fixed app list (for <kbd>z</kbd> / <kbd>Shift+z</kbd>)</h2>
+<h2>Fixed app list (for <kbd>↑</kbd> / <kbd>↓</kbd>)</h2>
 <p>Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition — maximized in place, never moved to a different screen. Also auto-applied on monitor plug/unplug (~2s after the screen settles) and on Hammerspoon reload.</p>
 <p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd> for this: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event — same reason the mode needs its own toggle key rather than reusing an arrow combo.</p>
