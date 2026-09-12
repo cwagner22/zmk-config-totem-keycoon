@@ -10,8 +10,7 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 </style>
 
 <h2>Window mode — <kbd>Meh+W</kbd> toggles (Hammerspoon, <code>~/.hammerspoon/windows-position.lua</code>)</h2>
-<p>A modal: press <kbd>Meh+W</kbd> once to enter, everything below then works with no modifier until you press <kbd>Esc</kbd> (or <kbd>Meh+W</kbd> again) to exit. <kbd>g</kbd>, <kbd>Shift+g</kbd>, and the arrow keys exit on their own as soon as they fire — they're one-shot, one press is the whole job, no cycle to land wrong on. <kbd>e s d f</kbd> (resize/snap) and <kbd>c</kbd> (center %) leave the mode running, since pressing again is how you cycle to the next size. An on-screen alert stays up the whole time as a reminder you're in it.</p>
-<p>On the Totem, <kbd>Meh</kbd> is the home-row hold on <kbd>,</kbd> (or <kbd>C</kbd>) — <code>ctrl+alt+shift</code>, no cmd. Not <kbd>Ctrl+Alt+W</kbd>: that's Wispr Flow's dictation trigger (<code>totem.keymap:373</code>). Not <kbd>Hyper</kbd> (<kbd>V</kbd>/<kbd>M</kbd> hold): <kbd>Hyper+H</kbd> is already the neru grid, and macOS's own Caps-Lock Hyper is a separate, fully-claimed namespace of app launchers (Karabiner). Meh was free — <code>totem.keymap</code> earmarks it for exactly this ("no app claims these, so they are safe for global hotkeys"). Nothing below is bound outside the mode — that's the point: it used to be bare <kbd>Ctrl+E/S/D/F/G</kbd> and <kbd>Ctrl+Alt+D/E/G</kbd> all the time, which shadowed normal app shortcuts (<kbd>Ctrl+S</kbd>=save, <kbd>Ctrl+Alt+D</kbd>=duplicate tab, etc).</p>
+<p><kbd>Meh</kbd> = hold <kbd>,</kbd> or <kbd>C</kbd> (ctrl+alt+shift, no cmd). <kbd>Esc</kbd> or <kbd>Meh+W</kbd> exits. <kbd>g</kbd>, <kbd>Shift+g</kbd>, and the arrows exit automatically after firing; <kbd>e s d f c</kbd> stay in the mode so repeating them cycles sizes.</p>
 
 <table>
 <tr><td><kbd>s</kbd></td><td>snap left, repeat to cycle width 1/2 → 1/3 → 2/3</td></tr>
@@ -21,15 +20,13 @@ kbd{font-family:ui-monospace,monospace;font-size:12px;background:#f0f0f5;border:
 <tr><td><kbd>s</kbd> + <kbd>f</kbd> held</td><td>full width</td></tr>
 <tr><td><kbd>e</kbd> + <kbd>d</kbd> held</td><td>full height</td></tr>
 <tr><td><kbd>c</kbd></td><td>center, repeat to cycle size 100% → 133% → 200%</td></tr>
-<tr><td><kbd>g</kbd> <i>(one-shot)</i></td><td>full size: fill the whole screen, still an ordinary window (deterministic — unlike <kbd>c</kbd>, always lands here regardless of where its cycle was)</td></tr>
-<tr><td><kbd>Shift+g</kbd> <i>(one-shot)</i></td><td>actual macOS full screen: separate Space, no menu bar/Dock</td></tr>
-<tr><td><kbd>↑</kbd> <i>(one-shot)</i></td><td>re-apply the focused app's configured layout (no-op if it has none)</td></tr>
-<tr><td><kbd>↓</kbd> <i>(one-shot)</i></td><td>re-apply every app's configured layout</td></tr>
-<tr><td><kbd>←</kbd> <i>(one-shot)</i></td><td>send focused window to the previous screen, keeping relative size/position</td></tr>
-<tr><td><kbd>→</kbd> <i>(one-shot)</i></td><td>send focused window to the next screen, same</td></tr>
+<tr><td><kbd>g</kbd></td><td>full size — fills the screen, still an ordinary window</td></tr>
+<tr><td><kbd>Shift+g</kbd></td><td>macOS native full screen (separate Space)</td></tr>
+<tr><td><kbd>↑</kbd></td><td>re-apply the focused app's configured layout</td></tr>
+<tr><td><kbd>↓</kbd></td><td>re-apply every configured app's layout</td></tr>
+<tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>send window to the previous / next screen</td></tr>
 </table>
-<p><kbd>e s d f</kbd> are in the same physical positions as the nav layer's arrows (<kbd>e</kbd>=up, <kbd>s</kbd>=left, <kbd>d</kbd>=down, <kbd>f</kbd>=right), not literal hjkl or arrow keys — the actual arrow keys are a separate, one-shot group for layout/screen-move.</p>
+<p><kbd>e s d f</kbd> mirror the nav layer's arrow positions, not hjkl. Not <kbd>Ctrl+Alt+W</kbd> for the toggle: that's Wispr Flow's dictation trigger. Not <kbd>Ctrl+Down/Up</kbd> for anything here: macOS reserves those for App Exposé / Mission Control.</p>
 
-<h2>Configured app layouts (for <kbd>↑</kbd> / <kbd>↓</kbd>)</h2>
-<p>The <code>layouts</code> table in <code>windows-position.lua</code> is a list of {app names, layout function} entries — the function could position by grid cell, pin to a screen, etc. Only one entry is defined today, and its function is <code>maximize</code>, applied to: Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition. That's a choice of this one entry, not a limit of the mechanism — add another entry with a different function for other apps and it works the same way. Also auto-applied on monitor plug/unplug (~2s after the screen settles) and on Hammerspoon reload.</p>
-<p>Not <kbd>Ctrl+Down</kbd>/<kbd>Ctrl+Up</kbd> for this: macOS owns those (App Exposé / Mission Control) and swallows them before Hammerspoon sees the event — same reason the mode needs its own toggle key rather than reusing an arrow combo.</p>
+<h2>Configured app layouts</h2>
+<p>Claude, VS Code, Notion, Cursor, Edge, Chrome, Brave, Firefox Dev Edition → maximize, via the <code>layouts</code> table in <code>windows-position.lua</code> (one entry per group of apps, each with its own layout function — maximize is just what this entry uses). Re-applied on monitor plug/unplug and Hammerspoon reload, in addition to <kbd>↑</kbd>/<kbd>↓</kbd>.</p>
