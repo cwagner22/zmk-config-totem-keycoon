@@ -144,6 +144,19 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
+
+        // One step per press however long it is held; tap then press-and-hold
+        // within quick-tap-ms keeps the key down so macOS repeats it. A tap
+        // releases before tapping-term-ms, which must stay below macOS
+        // InitialKeyRepeat (180 ms) or a slow tap repeats.
+        tap_rep: tap_rep {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <150>;
+            quick-tap-ms = <300>;
+            bindings = <&ktap>, <&kp>;
+        };
     };
 
     // A two-axis behavior emits movement onto its own virtual input device;
@@ -507,8 +520,8 @@
 
         device {
             bindings = <
-       &none         &ktap C_BRIGHTNESS_DEC  &ktap C_BRIGHTNESS_INC  &none               &none    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-       &ktap K_MUTE  &ktap C_VOLUME_DOWN     &ktap C_VOLUME_UP       &ktap C_PLAY_PAUSE  &none    &none         &none         &none         &none         &none
+       &none         &tap_rep C_BRIGHTNESS_DEC C_BRIGHTNESS_DEC  &tap_rep C_BRIGHTNESS_INC C_BRIGHTNESS_INC  &none               &none    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+       &ktap K_MUTE  &tap_rep C_VOLUME_DOWN C_VOLUME_DOWN        &tap_rep C_VOLUME_UP C_VOLUME_UP            &ktap C_PLAY_PAUSE  &none    &none         &none         &none         &none         &none
 &none  &none         &ktap C_RW              &ktap C_FF              &none               &none    &none         &none         &none         &none         &none         &bt BT_CLR
                                          &none                 &none             &none    &none         &none         &none
             >;
